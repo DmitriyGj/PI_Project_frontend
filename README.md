@@ -52,7 +52,7 @@ npm i -g  npm
 npm i -g yarn 
 ```
 
-##  Frontend
+##  Frontend (NextJs + TypeScript + Redux (Toolkit, Thunk))
 1. Склонировать репозиторий 
 2. Открыть папку консоли в терменале ввести команду 
 ```
