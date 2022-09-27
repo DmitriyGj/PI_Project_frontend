@@ -1,0 +1,38 @@
+{
+  "name": "pi_project_frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.8.5",
+    "antd": "^4.23.2",
+    "antd-icons": "^0.1.0-alpha.1",
+    "axios": "^0.27.2",
+    "axios-singleton": "^1.0.2-0",
+    "classnames": "^2.3.2",
+    "dayjs": "^1.11.5",
+    "formik": "^2.2.9",
+    "less": "^4.1.3",
+    "next": "12.3.1",
+    "next-redux-wrapper": "^8.0.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "redux": "^4.2.0",
+    "typescript-plugin-css-modules": "^3.4.0",
+    "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "@next/eslint-plugin-next": "^12.3.1",
+    "@types/node": "18.7.23",
+    "@types/react": "18.0.21",
+    "@types/react-dom": "18.0.6",
+    "eslint": "8.24.0",
+    "eslint-config-next": "12.3.1",
+    "typescript": "4.8.3"
+  }
+}

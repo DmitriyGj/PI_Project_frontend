@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+        
+    "allowSyntheticDefaultImports": true,
+
+    "baseUrl": "./public/src",
+    "paths": {
+      "@media/*":["media/*"],//алиас для иконок, картинок
+      "@components/*": ["components/*"],//алиас для компонентов
+      "@models/*": ["models/*"],//алиас для типов
+      "@hooks/*": ["hooks/*"], //алиас для хуков
+      "@store/*": ["store/*"],//алиас для стора
+      "@utils/*": ["utils/*"], //алиас для вспомогательных приколов
+      "@styles/*": ["styles/*"]//алиас для глобальных стилей
+    },
+    "plugins": [{ 
+      "name": "typescript-plugin-css-modules",
+      "options": {
+        "classnameTransform": "camelCase",
+      }
+    }]
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
+}
