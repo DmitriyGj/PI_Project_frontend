@@ -2,6 +2,7 @@ import type { AppProps } from 'next/app';
 import '@styles/global.scss';
 import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
+import { wrapper } from '@store/index';
 
 const cache = createCache({
     key: 'css',
@@ -14,4 +15,4 @@ function MyApp({ Component, pageProps }: AppProps) {
     </CacheProvider>);
 }
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);
