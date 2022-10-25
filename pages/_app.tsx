@@ -3,16 +3,20 @@ import '@styles/global.scss';
 import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
 import { wrapper } from '@store/index';
+import { Provider } from 'react-redux';
 
 const cache = createCache({
     key: 'css',
     prepend: true,
 });
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, ...rest }: AppProps) {
+    const { store, props } = wrapper.useWrappedStore(rest);
     return ( <CacheProvider value={cache}>
-        <Component {...pageProps} />
+        <Provider store={store}>
+            <Component {...props.pageProps} />
+        </Provider>
     </CacheProvider>);
 }
 
-export default wrapper.withRedux(MyApp);
+export default MyApp;
