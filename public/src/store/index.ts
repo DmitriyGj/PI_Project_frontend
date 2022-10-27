@@ -1,9 +1,18 @@
 ﻿import { configureStore } from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper';
 
+import userSlice from './users/slice';
+import testSlice from './test/slice';
+import meetingsSlice from './meetings/slice';
+import appSlice from './app/slice';
+
+
 const MeetingManagerStore = configureStore({
     reducer:{
-        //здеся вставить рельюсеры из слайсов
+        userSlice,
+        testSlice,
+        appSlice,
+        meetingsSlice
     }
 });
 

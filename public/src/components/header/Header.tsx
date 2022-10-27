@@ -5,9 +5,9 @@ import SideBar from "@components/sideBar/SideBar";
 
 const Header = () => {
     return(
-        <>
+        <header>
           <nav className={Style.menu}>
-          <SideBar/>
+          <SideBar width={"200px"}/>
             <Link href={'/'}>
                 <a className={Style.link}>Главная страница</a>
             </Link>
@@ -15,7 +15,7 @@ const Header = () => {
                 <a>Тестовая страница</a>
             </Link>
           </nav>
-        </>
+        </header>
     );
 }
 

@@ -2,7 +2,7 @@ import { Button, Drawer } from 'antd';
 import { useState } from 'react';
 import { MenuUnfoldOutlined } from '@ant-design/icons';
 
-const SideBar: React.FC = () => {
+const SideBar: React.FC = ({width}) => {
   const [open, setOpen] = useState(false);
 
   const showDrawer = () => {
@@ -18,7 +18,7 @@ const SideBar: React.FC = () => {
       <Button type="primary" shape="round" onClick={showDrawer}>
         <MenuUnfoldOutlined />
       </Button>
-      <Drawer title="Basic Drawer" placement="left" onClose={onClose} open={open}>
+      <Drawer width={width} title="Basic Drawer" placement="left" onClose={onClose} open={open}>
         <p>Some contents...</p>
         <p>Some contents...</p>
         <p>Some contents...</p>

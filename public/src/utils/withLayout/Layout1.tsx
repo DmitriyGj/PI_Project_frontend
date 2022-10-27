@@ -3,17 +3,23 @@ import React from 'react';
 
 const { Header, Footer, Sider, Content } = Layout;
 
-const Layout1: React.FC = () => (
+import HeaderApp from "@components/header/Header";
+import FooterApp from "@components/footer/Footer";
+import Style from "@utils/withLayout/withLayout.module.scss";
+
+
+const Layout1: React.FC = ({children}) => (
   <>
-    
-    <Layout>
-      <Sider>Sider</Sider>
+      <div className={Style.container}>
       <Layout>
-        <Header>Header</Header>
-        <Content>Content</Content>
-        <Footer>Footer</Footer>
+          <Header>{<HeaderApp/>}</Header>
+          <Layout>
+              <Sider>Sider</Sider>
+              <Content>{children}</Content>
+          </Layout>
+          <Footer>{<FooterApp/>}</Footer>
       </Layout>
-    </Layout>
+      </div>
   </>
 );
 
