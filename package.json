@@ -28,6 +28,7 @@
     "react-redux": "^8.0.4",
     "redux": "^4.2.0",
     "typescript-plugin-css-modules": "^3.4.0",
+    "uuid": "^9.0.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {
