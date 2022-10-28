@@ -8,11 +8,11 @@ const Header = () => {
         <header>
           <nav className={Style.menu}>
           <SideBar width={"200px"}/>
-            <Link href={'/'}>
-                <a className={Style.link}>Главная страница</a>
+            <Link className={Style.link} href={'/'}>
+               Главная страница
             </Link>
             <Link href={'/test'}>
-                <a>Тестовая страница</a>
+                Тестовая страница
             </Link>
           </nav>
         </header>
