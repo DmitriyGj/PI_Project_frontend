@@ -4,7 +4,7 @@ import { authUser, fetchUsers} from "./thunk"
 import { UserInfo, UserDetailInfo, UsersState } from "./types";
 
 
-const initialState = { users : [], currentUser : null} as UsersState
+const initialState = { users : [], currentUser :{id:1,name:"a",email:"a",login:"a",organization:"a",role:"admin"}} as UsersState
 
 const usersSlice = createSlice({
   name: 'users',
