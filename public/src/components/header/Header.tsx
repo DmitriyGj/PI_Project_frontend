@@ -32,10 +32,10 @@ const Header = () => {
             {userStatus == UserRole.ADMIN 
                 ? <>
                     <NavigationMenu linksInfo={linksInfo}/>  
-                    <SideBar width= { '200px' } />
                 </>
                 : null 
             }
+            <SideBar width= { '200px' } />
         </header>
     );
 };
