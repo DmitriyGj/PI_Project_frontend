@@ -1,5 +1,5 @@
 export interface AppState {
-    initial: boolean,
+    initial: boolean
     status: AppStatus | null
 }
 

@@ -19,7 +19,7 @@ const SideBar = ({ width, ...rest }: SideBarProps): JSX.Element => {
             <Button type='primary' shape='round' onClick={showDrawer}>
                 <MenuUnfoldOutlined />
             </Button>
-            <Drawer width={width} title='Basic Drawer' placement='left' onClose={onClose} open={open}>
+            <Drawer width={width} title='Basic Drawer' placement='right' onClose={onClose} open={open}>
                 <p>Some contents...</p>
                 <p>Some contents...</p>
                 <p>Some contents...</p>

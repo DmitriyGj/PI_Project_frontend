@@ -18,5 +18,5 @@ export interface UsersState {
 export enum UserRole {
     'ADMIN' = 'admin',
     'USER' = 'user',
-    'none' = 'none'
+    'NONE' = 'none'
 }

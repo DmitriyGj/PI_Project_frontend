@@ -2,8 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { setCurrentUser } from './slice';
 import { UserDetailInfo, UserRole } from './types';
 import axios from 'axios';
-import { Simulate } from 'react-dom/test-utils';
-import error = Simulate.error;
+// import { Simulate } from 'react-dom/test-utils';
+// import error = Simulate.error;
 
 export const authUser = createAsyncThunk('users/authUser', 
     async (value: number, { getState, dispatch, rejectWithValue }) => {

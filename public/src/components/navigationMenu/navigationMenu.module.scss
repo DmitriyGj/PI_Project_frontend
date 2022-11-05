@@ -1,10 +1,9 @@
 .links{
-    color: aqua;
+    display: flex;
     position: absolute;
-    margin-top: 50px;
+    column-gap: 10px;
 
     .link{
-        margin-left: 10px;
         cursor: pointer;
     }
 }

@@ -1,7 +1,7 @@
 ﻿export type LinkProps = { 
+  id: number
   href: string 
   label: string
-  id: string
 }
 
 export type NavigationMenuProps = {
