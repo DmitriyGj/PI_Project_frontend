@@ -1,33 +1,41 @@
 import React from 'react';
 import { useState } from 'react';
 import 'antd/dist/antd.css';
-import { DatePicker, Space } from 'antd';
+import { DatePicker, Space, Radio } from 'antd';
 import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker';
-import { Radio } from 'antd';
 import type { RadioChangeEvent } from 'antd';
 import Style from './leftsidebar.module.scss';
 import { LeftSideBarProps } from './types';
 
+import moment from 'moment';
+import { ConfigProvider } from 'antd';
+import ru_RU from 'antd/lib/locale/ru_RU';
+
+moment.locale('ru');
+
 const { RangePicker } = DatePicker;
 
 const LeftSideBar = ({ children }: LeftSideBarProps) => {
-    const [ date1, setDate1 ] = useState(new Date());
-    const [ date2, setDate2 ] = useState(new Date());
+    const [ date1, setDate1 ] = useState('');
+    const [ date2, setDate2 ] = useState('');
 
     const onChangeDate = (
         value: DatePickerProps['value'] | RangePickerProps['value'],
         dateString: [string, string] | string,
     ) => {
-        console.log('Selected Time: ', value);
-        console.log('Formatted Selected Time: ', dateString);
-        setDate1(new Date(dateString[0]));
-        setDate2(new Date(dateString[1]));
+        setDate1(dateString[0]);
+        setDate2(dateString[1]);
     };
+
+    const options = [
+        { label: 'День', value: 1 },
+        { label: 'Неделя', value: 2 },
+        { label: 'Месяц', value: 3 }
+    ];
 
     const [ group, setGroup ] = useState(1);
 
     const onChangeGroup = (e: RadioChangeEvent) => {
-        console.log('radio checked', e.target.value);
         setGroup(e.target.value);
     };
     
@@ -35,17 +43,12 @@ const LeftSideBar = ({ children }: LeftSideBarProps) => {
         <div className={Style.comp}>
             <div className={Style.leftSideBar}>
                 <Space direction='vertical' size={12}>
-                    <label><b>Временной промежуток</b></label>
-                    <RangePicker onChange={onChangeDate}/>
-                    <label><b>Группировка</b></label>
-                    <Radio.Group onChange={onChangeGroup} value={group}>
-                        <Space direction='vertical'>
-                            <Radio value={1}>По дням</Radio>
-                            <Radio value={2}>По неделям</Radio>
-                            <Radio value={3}>По месяцам</Radio>
-                            <Radio value={4}>По годам</Radio>
-                        </Space>
-                    </Radio.Group>
+                    <label><b>Промежуток дат</b></label>
+                    <ConfigProvider locale={ru_RU}>
+                        <RangePicker onChange={onChangeDate} placeholder={[ 'От', 'До' ]}/>
+                    </ConfigProvider>
+                    <Radio.Group options={options} onChange={onChangeGroup} value={group} 
+                        optionType='button' style={{ display:'flex', justifyContent:'center' }}/>
                 </Space>
             </div>
             <div className={Style.children}>
