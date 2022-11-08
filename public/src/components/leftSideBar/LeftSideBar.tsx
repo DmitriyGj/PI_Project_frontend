@@ -7,11 +7,9 @@ import type { RadioChangeEvent } from 'antd';
 import Style from './leftsidebar.module.scss';
 import { LeftSideBarProps } from './types';
 
-import moment from 'moment';
+import 'moment/locale/ru';
 import { ConfigProvider } from 'antd';
 import ru_RU from 'antd/lib/locale/ru_RU';
-
-moment.locale('ru');
 
 const { RangePicker } = DatePicker;
 
@@ -47,8 +45,7 @@ const LeftSideBar = ({ children }: LeftSideBarProps) => {
                     <ConfigProvider locale={ru_RU}>
                         <RangePicker onChange={onChangeDate} placeholder={[ 'От', 'До' ]}/>
                     </ConfigProvider>
-                    <Radio.Group options={options} onChange={onChangeGroup} value={group} 
-                        optionType='button' style={{ display:'flex', justifyContent:'center' }}/>
+                    <Radio.Group options={options} onChange={onChangeGroup} value={group} optionType='button' style={{ display:'flex', justifyContent:'center' }}/>
                 </Space>
             </div>
             <div className={Style.children}>
