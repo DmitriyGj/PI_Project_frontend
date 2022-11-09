@@ -4,10 +4,13 @@ import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
 import { wrapper } from '@store/index';
 import { Provider } from 'react-redux';
-import 'antd/dist/antd.css';
 
 import WithLayout from '@utils/withLayout/WithLayout';
-import Layout1 from "@utils/withLayout/Layout1";
+import Layout1 from '@utils/withLayout/Layout1';
+
+import 'moment/locale/ru';
+import locale from 'antd/lib/locale/ru_RU';
+import { ConfigProvider } from 'antd';
 
 const cache = createCache({
     key: 'css',
@@ -18,9 +21,11 @@ function MyApp({ Component, ...rest }: AppProps) {
     const { store, props } = wrapper.useWrappedStore(rest);
     return ( <CacheProvider value={cache}>
         <Provider store={store}>
-            <WithLayout>
-                <Component {...props.pageProps} />
-            </WithLayout>
+            <ConfigProvider locale={locale}>
+                <WithLayout>
+                    <Component {...props.pageProps} />
+                </WithLayout>
+            </ConfigProvider>
         </Provider>
     </CacheProvider>);
 }
