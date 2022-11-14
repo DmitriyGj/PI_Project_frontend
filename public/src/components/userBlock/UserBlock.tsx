@@ -75,8 +75,8 @@ const UserBlock = ({ user }: UserBlockProps) => {
                 ]}
             >
                 <Input.Group style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                    <input placeholder='Логин' />
-                    <input placeholder='Пароль' type='password' />
+                    <Input placeholder='Логин' />
+                    <Input placeholder='Пароль' type='password' />
                 </Input.Group>
             </Modal>
         </>
