@@ -10,6 +10,10 @@ import { getCurrentUserRole } from '@store/meetings/selectors';
 import { UserRole } from '@store/users/types';
 
 import Logo from '@components/logo/Logo';
+
+import UserBlock from '@components/userBlock/UserBlock';
+
+
 const Header = () => {
     const userStatus = useSelector(getCurrentUserRole);
 
@@ -35,7 +39,10 @@ const Header = () => {
                 </>
                 : null 
             }
-            <SideBar width= { '200px' } />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+                <UserBlock user={undefined} />
+                <SideBar width={'200px'} />
+            </div>
         </header>
     );
 };
