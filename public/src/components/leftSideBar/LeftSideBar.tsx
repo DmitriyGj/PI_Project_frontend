@@ -20,9 +20,32 @@ const LeftSideBar = () => {
     const viewType = useSelector(state => state.meetingsSlice.viewType); 
     
     const onChangeDate = (values: RangePickerSharedProps<Moment>['value']) => {
+        console.log(values);
+        let startDate: Date | null;
+        let endDate: Date | null;
+        if(values){
+            if(values[0]) {
+                startDate = new Date(values[0]?.format('YYYY-MM-DD'));
+            } 
+            else {
+                startDate = null;
+            }
+            if(values[1]) {
+                endDate = new Date(values[1]?.format('YYYY-MM-DD'));
+            } 
+            else {
+                endDate = null;
+            }
+        } 
+        else {
+            startDate = null;
+            endDate = null;
+        }
+
+
         const interval: MeetingDateInterval = {
-            start: new Date(values[0]?.format('YYYY-MM-DD')),
-            end: new Date(values[1]?.format('YYYY-MM-DD'))
+            start: startDate,
+            end: endDate
         };
         dispatch(setInterval(interval));
     };
@@ -40,7 +63,7 @@ const LeftSideBar = () => {
     return (
         <div className={Style.leftSideBar}>
             <label><b>Промежуток дат</b></label>
-            <RangePicker onChange={onChangeDate} placeholder={[ 'От', 'До' ]}/>
+            <RangePicker allowEmpty={[ true, true ]} onChange={onChangeDate} placeholder={[ 'От', 'До' ]}/>
             <Radio.Group options={options} onChange={onChangeGroup} value={viewType} 
                 optionType='button' style={{ display:'flex', justifyContent:'center' }}/>
         </div>
