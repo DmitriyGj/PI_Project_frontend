@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 const Loader = () => {
     return(
         <>
@@ -7,6 +5,6 @@ const Loader = () => {
         </>
 
     );
-}
+};
 
 export default Loader;

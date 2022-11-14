@@ -1,11 +1,9 @@
-import Link from "next/link";
-
-const Header = () => {
+const Footer = () => {
     return(
         <footer>
          
         </footer>
     );
-}
+};
 
-export default Header;
+export default Footer;
