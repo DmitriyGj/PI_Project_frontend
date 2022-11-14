@@ -4,13 +4,11 @@ import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
 import { wrapper } from '@store/index';
 import { Provider } from 'react-redux';
-
 import WithLayout from '@utils/withLayout/WithLayout';
-import Layout1 from '@utils/withLayout/Layout1';
-
 import 'moment/locale/ru';
 import locale from 'antd/lib/locale/ru_RU';
 import { ConfigProvider } from 'antd';
+import 'antd/dist/antd.css';
 
 const cache = createCache({
     key: 'css',
