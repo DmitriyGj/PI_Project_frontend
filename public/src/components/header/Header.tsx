@@ -39,7 +39,7 @@ const Header = () => {
                 </>
                 : null 
             }
-            <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+            <div className={Style.header__rightSubmenu}>
                 <AuthorizationForm user={undefined} />
                 <SideBar width={'200px'} />
             </div>
