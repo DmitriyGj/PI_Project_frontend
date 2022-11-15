@@ -19,13 +19,13 @@ type User = {
 /// Примеры использования:
 ///
 ///   ```
-///   <UserBlock user={undefined} />
+///   <AuthorizationForm user={undefined} />
 ///   ```
 ///
 ///   ```
-///   <UserBlock user={{ id: 1, name: 'Петр Петров' }} />
+///   <AuthorizationForm user={{ id: 1, name: 'Петр Петров' }} />
 ///   ```
-const UserBlock = ({ user }: UserBlockProps) => {
+const AuthorizationForm = ({ user }: UserBlockProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const showModal = () => {
@@ -83,4 +83,4 @@ const UserBlock = ({ user }: UserBlockProps) => {
     );
 };
 
-export default UserBlock;
+export default AuthorizationForm;
