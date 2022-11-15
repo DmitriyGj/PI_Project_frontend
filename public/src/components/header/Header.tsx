@@ -11,7 +11,7 @@ import { UserRole } from '@store/users/types';
 
 import Logo from '@components/logo/Logo';
 
-import UserBlock from '@components/userBlock/UserBlock';
+import AuthorizationForm from '@components/authorizationForm/AuthorizationForm';
 
 
 const Header = () => {
@@ -40,7 +40,7 @@ const Header = () => {
                 : null 
             }
             <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-                <UserBlock user={undefined} />
+                <AuthorizationForm user={undefined} />
                 <SideBar width={'200px'} />
             </div>
         </header>
