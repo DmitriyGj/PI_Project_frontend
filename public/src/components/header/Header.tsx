@@ -10,6 +10,10 @@ import { getCurrentUserRole } from '@store/meetings/selectors';
 import { UserRole } from '@store/users/types';
 
 import Logo from '@components/logo/Logo';
+
+import AuthorizationForm from '@components/authorizationForm/AuthorizationForm';
+
+
 const Header = () => {
     const userStatus = useSelector(getCurrentUserRole);
 
@@ -35,7 +39,10 @@ const Header = () => {
                 </>
                 : null 
             }
-            <SideBar width= { '200px' } />
+            <div className={Style.header__rightSubmenu}>
+                <AuthorizationForm user={undefined} />
+                <SideBar width={'200px'} />
+            </div>
         </header>
     );
 };
