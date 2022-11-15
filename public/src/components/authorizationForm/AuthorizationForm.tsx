@@ -1,5 +1,6 @@
 import { Button, Modal, Input } from 'antd';
 import React, { useState } from 'react';
+import Style from './authorizationForm.module.scss';
 import 'antd/dist/antd.css';
 
 
@@ -54,7 +55,7 @@ const AuthorizationForm = ({ user }: UserBlockProps) => {
         <>
             {user != undefined
                 ?
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div className={Style.authorizationForm__userBlock}>
                     {user.name}
                     <Button type="primary" onClick={handleLogout}>
                         Выход
@@ -74,10 +75,10 @@ const AuthorizationForm = ({ user }: UserBlockProps) => {
                     </Button>
                 ]}
             >
-                <Input.Group style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <div className={Style.authorizationForm__content}>
                     <Input placeholder='Логин' />
                     <Input placeholder='Пароль' type='password' />
-                </Input.Group>
+                </div>
             </Modal>
         </>
     );
