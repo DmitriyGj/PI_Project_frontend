@@ -76,8 +76,8 @@ const AuthorizationForm = ({ user }: UserBlockProps) => {
                 ]}
             >
                 <div className={Style.authorizationForm__content}>
-                    <Input placeholder='Логин' />
-                    <Input placeholder='Пароль' type='password' />
+                    <Input placeholder='Логин' name='login' />
+                    <Input placeholder='Пароль' type='password' name='password' />
                 </div>
             </Modal>
         </>
