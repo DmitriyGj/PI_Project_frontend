@@ -13,6 +13,11 @@ type User = {
     name: string
 }
 
+type AuthorizationFormState = {
+    login: string,
+    password: string
+}
+
 
 /// Блок, который отображает либо кнопку вход для последующего ввода логина-пароля в модалке,
 /// либо имя-фамилию и кнопку выход.
@@ -28,6 +33,7 @@ type User = {
 ///   ```
 const AuthorizationForm = ({ user }: UserBlockProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [authorizationFormState, setAuthorizationFormState] = useState({ login: '', password: '' });
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -49,6 +55,15 @@ const AuthorizationForm = ({ user }: UserBlockProps) => {
 
     const handleLogout = () => {
         // TODO: fetch
+    };
+
+    const changeState = (e: any) => {
+        const { value, name } = e.target;
+
+        setAuthorizationFormState({
+            ...authorizationFormState,
+            [name]: value
+        });
     };
 
     return (
@@ -76,8 +91,8 @@ const AuthorizationForm = ({ user }: UserBlockProps) => {
                 ]}
             >
                 <div className={Style.authorizationForm__content}>
-                    <Input placeholder='Логин' name='login' />
-                    <Input placeholder='Пароль' type='password' name='password' />
+                    <Input placeholder='Логин' name='login' onChange={changeState} />
+                    <Input placeholder='Пароль' type='password' name='password' onChange={changeState} />
                 </div>
             </Modal>
         </>
