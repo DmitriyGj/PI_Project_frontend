@@ -15,7 +15,7 @@ const testSlice = createSlice({
     initialState,
     reducers: {
         setValue(state, action) {
-            state.counter = action.payload
+            state.counter = action.payload;
         },
         incValue(state) {
             state.counter += 1;
@@ -41,6 +41,6 @@ const testSlice = createSlice({
 
 })
 
-export const {setValue, incValue, decValue, addToDo, removeToDo} = testSlice.actions
-export default testSlice.reducer
+export const {setValue, incValue, decValue, addToDo, removeToDo} = testSlice.actions;
+export default testSlice.reducer;
 

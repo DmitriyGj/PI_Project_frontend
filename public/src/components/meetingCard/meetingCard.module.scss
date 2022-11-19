@@ -1,0 +1,39 @@
+.meetingCard{
+    //white-space: nowrap;
+    display: flex;
+    width: 784px;
+    height: 99px;
+    padding: 1px;
+    border: 1px solid #F0F0F0;
+    font-size: 20px;
+}
+
+.columns{
+    margin: 0;
+    white-space: normal;	
+    display: inline-block;
+    width: 49%; 
+    font-size:20px;
+    font-weight: 500;
+
+    .rightSide
+    {
+        text-align: right;
+    }
+
+    .redStyle{
+        display: inline-block;
+        background-color: #FF4D4F;
+    }
+
+    .emptyStyle{}
+
+    .secondLine{
+        margin-top: -5px;
+        margin-left: 4px;
+        margin-right: 4px;
+        color: #595959;
+        font-size: 16px;
+        font-weight: normal;
+    }
+}

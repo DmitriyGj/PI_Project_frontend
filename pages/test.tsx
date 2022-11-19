@@ -6,6 +6,8 @@ import {useState} from "react";
 import {directive} from "@babel/types";
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
+import MeetingCard from "@components/meetingCard/MeetingCard";
+import MeetingSchedule from "@components/meetingSchedule/MeetingSchedule";
 
 const Test = () =>{
     const [val, setVal] = useState('');
@@ -36,7 +38,7 @@ const Test = () =>{
                 <button onClick={()=>dispatch(decValue())}>Уменьшить</button>
                 <button onClick={()=>dispatch(authUser())}>Получить данные с сервера</button>
             </div>
-
+            <MeetingSchedule/>
         </>
        
     );
