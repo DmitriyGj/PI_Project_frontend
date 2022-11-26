@@ -4,7 +4,9 @@ import { authUser } from './thunk';
 import { UserDetailInfo, UsersState, UserRole } from './types';
 
 
-const initialState = { users : [], currentUser :{ id:1,name:'a',email:'a',login:'a',organization:'a',role: UserRole.ADMIN } } as UsersState;
+const initialState = { users : [{ id:1,name:'Иван Иванов',email:'zxc2006@mail.ru',login:'ivanpro',organization:'Amazon'},
+{ id:2,name:'Владислав Свинотов',email:'turbovoin@mail.ru',login:'vladik',organization:'Google'}], 
+currentUser :{ id:1,name:'Петр Петров',email:'abcd@gmail.com',login:'petr',organization:'Google',role: UserRole.ADMIN } } as UsersState;
 
 const usersSlice = createSlice({
     name: 'users',
