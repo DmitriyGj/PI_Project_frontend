@@ -1,14 +1,14 @@
-import {createSlice} from "@reduxjs/toolkit";
-import {authUser} from "@store/test/thunk";
+import { createSlice } from '@reduxjs/toolkit';
+import { authUser } from '@store/test/thunk';
 
-const initialState = {counter: 0,
+const initialState = { counter: 0,
     toDoList: [
-        {id: 1, text: "Почистить аквариум"},
-        {id: 2, text: "Сделать дз"},
-        {id: 3, text: "Изучить реакт"},
-        {id: 4, text: "Изучить редакс"}
+        { id: 1, text: 'Почистить аквариум' },
+        { id: 2, text: 'Сделать дз' },
+        { id: 3, text: 'Изучить реакт' },
+        { id: 4, text: 'Изучить редакс' }
     ]
-}
+};
 
 const testSlice = createSlice({
     name: 'test',
@@ -26,7 +26,7 @@ const testSlice = createSlice({
         addToDo(state, action) {
             const lastId= state.toDoList[state.toDoList.length-1].id;
             if(action.payload !== ''){
-                state.toDoList.push({id:lastId+1, text: action.payload});
+                state.toDoList.push({ id:lastId+1, text: action.payload });
             }
 
         },
@@ -35,12 +35,11 @@ const testSlice = createSlice({
         },
     },
     extraReducers: {
-        [authUser.pending]: (state)=>{ },
+        [ authUser.pending ]: (state)=>{ },
 
     }
 
-})
+});
 
-export const {setValue, incValue, decValue, addToDo, removeToDo} = testSlice.actions;
+export const { setValue, incValue, decValue, addToDo, removeToDo } = testSlice.actions;
 export default testSlice.reducer;
-

@@ -1,15 +1,16 @@
 .meetingCard{
-    //white-space: nowrap;
     display: flex;
-    width: 784px;
+    width: 90%;
     height: 99px;
     padding: 1px;
-    border: 1px solid #F0F0F0;
     font-size: 20px;
+    border-radius: 2px;
 }
 
 .columns{
-    margin: 0;
+    margin-left: 19px;
+    margin-right: 19px;
+    margin-top: 7px;
     white-space: normal;	
     display: inline-block;
     width: 49%; 

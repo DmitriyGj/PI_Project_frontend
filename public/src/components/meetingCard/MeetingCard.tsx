@@ -8,7 +8,7 @@ const MeetingCard=({ meeting, chooseDay=true, conflict=false })=>
     const duration = (start: Date, end: Date)=>{
         const hours=Math.trunc((end-start)/(1000*3600));
         const minutes=(end-start)/(1000*60)%60;
-        return (hours?hours:'0')+' ч. '+(minutes?minutes:'0')+' м.';
+        return (hours?(hours+' ч. '):'')+(minutes?minutes+' мин.':'');
     };
 
     const showTime = (time: Date)=>
@@ -17,9 +17,12 @@ const MeetingCard=({ meeting, chooseDay=true, conflict=false })=>
     };
     
     const date = chooseDay?'':dateTimeStart.getDate()+'/'+(dateTimeStart.getMonth()+1)+'/'+dateTimeStart.getFullYear();
+    const start=showTime(dateTimeStart);
+    const end=showTime(dateTimeEnd);
+    const haveConflict=conflict?(Style.redStyle):(Style.emptyStyle);
 
     return (
-        <div className={Style.meetingCard}>
+        <div className={Style.meetingCard} style={conflict?({ 'border':'2px solid #FF4D4F' }):({ 'border':'2px solid #F0F0F0' })}>
             <div className={Style.columns}>
                 <div>{name}</div>
                 <div className={Style.secondLine}>{progectName}</div>
@@ -29,14 +32,14 @@ const MeetingCard=({ meeting, chooseDay=true, conflict=false })=>
             <div className={Style.columns}>
                 <div className={Style.rightSide}>
                     <div>
-                        <div className={conflict?(Style.redStyle):(Style.emptyStyle)}>
-                            {showTime(dateTimeStart)}
+                        <div className={haveConflict}>
+                            {start}
                         </div>
                     </div>
                     <div className={Style.secondLine}> {duration(dateTimeStart, dateTimeEnd)}</div>
                     <div>
-                        <div className={conflict?(Style.redStyle):(Style.emptyStyle)}>
-                            {showTime(dateTimeEnd)}
+                        <div className={haveConflict}>
+                            {end}
                         </div>
                     </div>
                 </div>

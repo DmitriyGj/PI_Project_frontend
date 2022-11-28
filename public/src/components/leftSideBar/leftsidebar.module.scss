@@ -1,0 +1,11 @@
+.leftSideBar {
+    width: 25%;
+    padding: 1%;
+    padding-top: 2%;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+
+    border-right: 1px solid lightgray;
+}

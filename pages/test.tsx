@@ -1,5 +1,5 @@
-import {useDispatch, useSelector} from "react-redux";
-import {addToDo, decValue, incValue, removeToDo} from "@store/test/slice";
+import { useDispatch, useSelector } from 'react-redux';
+import { addToDo, decValue, incValue, removeToDo } from '@store/test/slice';
 // import {authUser} from "@store/test/thunk";
 
 import {useState} from "react";
@@ -10,14 +10,14 @@ import MeetingCard from "@components/meetingCard/MeetingCard";
 import MeetingSchedule from "@components/meetingSchedule/MeetingSchedule";
 
 const Test = () =>{
-    const [val, setVal] = useState('');
+    const [ val, setVal ] = useState('');
     const counter = useSelector(state => state.testSlice.counter);
     const toDoList = useSelector(state => state.testSlice.toDoList);
     const dispatch = useDispatch();
 
     const changeVal = (e) => {
         setVal(e.target.value);
-    }
+    };
 
     return (
         <>
@@ -26,10 +26,10 @@ const Test = () =>{
                 <div>
 
                 </div>
-                {toDoList.map((todo) => (<div key={todo.id} style={{"display": "flex"}}><div>{todo.text}</div>
+                {toDoList.map((todo) => (<div key={todo.id} style={{ 'display': 'flex' }}><div>{todo.text}</div>
                     <button onClick={() => {dispatch(removeToDo(todo.id));}}>delete</button></div>))}
 
-                <input type="text" onChange={changeVal} value={val} name={'addToDo'} placeholder={'ToDo'}/>
+                <input type='text' onChange={changeVal} value={val} name={'addToDo'} placeholder={'ToDo'}/>
                 <button onClick={()=> {
                     dispatch(addToDo(val)); setVal('');
                 }}>Добавить</button>
@@ -38,15 +38,14 @@ const Test = () =>{
                 <button onClick={()=>dispatch(decValue())}>Уменьшить</button>
                 <button onClick={()=>dispatch(authUser())}>Получить данные с сервера</button>
             </div>
-            <MeetingSchedule/>
         </>
        
     );
-}
+};
 
 
 const authUser = createAsyncThunk('users/authUser',
-    async (value:number, {getState, dispatch, rejectWithValue}) => {
+    async (value: number, { getState, dispatch, rejectWithValue }) => {
 
         // try {
         //     const res = axios('https://jsonplaceholder.ttypicode.com/users?_limit=10')
@@ -64,6 +63,6 @@ const authUser = createAsyncThunk('users/authUser',
             });
         return res;
     }
-)
+);
 
 export default Test;
