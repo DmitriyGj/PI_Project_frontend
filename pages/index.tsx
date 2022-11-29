@@ -6,7 +6,9 @@ const Home = ({ items }: { items: UserDetailInfo[]}) => {
     return (
         <div style={{ display:'flex', justifyContent:'center', width:'100%' }}>
             <h1>Hello World </h1>
-            <SelectUsers items={items}  />
+            <SelectUsers items={items} style={{
+                width: '75%'
+            }}  />
         </div>
     );
 };

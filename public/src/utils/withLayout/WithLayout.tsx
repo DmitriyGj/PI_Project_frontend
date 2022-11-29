@@ -9,10 +9,11 @@ import { AppStatus } from '../../store/app/types';
 
 
 import { useSelector } from 'react-redux';
+import { RootState } from '@store/index';
 
 
 const WithLoyout = ({ children }) => {
-    const appStatus = useSelector(state => state.appSlice.status);
+    const appStatus = useSelector((state: RootState) => state.appSlice.status);
 
     return(
         <div className={Style.container}>
@@ -20,6 +21,7 @@ const WithLoyout = ({ children }) => {
             <main className={Style.main}>
                 <LeftSideBar/>
                 {appStatus==AppStatus.loading? <Loader/> : null}
+                
                 {children}
             </main>
 

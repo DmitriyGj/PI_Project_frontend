@@ -1,13 +1,12 @@
-﻿import React, { useState, useMemo, useCallback } from 'react';
+﻿import React, { useState, useMemo, useCallback, ReactNode } from 'react';
 import { ISelectUsersProps, ISelectUsersState } from '.';
 import { Select } from 'antd';
-import cn from 'classnames';
 import { UserOutlined } from '@ant-design/icons';
 import { DefaultOptionType } from 'antd/lib/select';
 import { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
 const { Option } = Select;
 
-export const SelectUsers =  ({ selectedValue: value, className, items, onSelect }: ISelectUsersProps): JSX.Element => {
+export const SelectUsers =  ({ selectedValue: value, className, items, style, onSelect }: ISelectUsersProps): JSX.Element => {
     const [ { selectedValue }, setState ] = useState<ISelectUsersState>({  selectedValue: value ?? [] });
 
     const selectValue = useCallback(
@@ -23,18 +22,20 @@ export const SelectUsers =  ({ selectedValue: value, className, items, onSelect 
         [],
     );
 
-    const filterHandler = (input: string, option: DefaultOptionType | undefined) => {
-        const finder = (child: ReactJSXElement, findValue: string): boolean => child.props.children 
-            ? Array.from(child.props.children).some((child: unknown) => (child as Element).textContent?.toLowerCase().includes(findValue.toLowerCase())) 
-            : false;
-        return option?.children ? Array.from(option.children).some((child: ReactJSXElement )=> finder(child, input))  : false;
+    const filterHandler = (input: string, option: DefaultOptionType | undefined): boolean => {
+        const children = option?.children as unknown as ReactJSXElement;
+        const childrenOfChildren = children.props.children as ReactNode [];
+        const contains = childrenOfChildren.some(node => node?.toString().includes(input));
+        return contains;
     };
 
-    return <Select className={cn('select-link', className)}
+    return <Select className={className}
+        style={style}
         allowClear showSearch showArrow={true}
         mode='multiple'
+        dropdownMatchSelectWidth={true}
         optionFilterProp='label'  
-        size='large'
+        size='middle'
         value={selectedValue}
         filterOption={filterHandler}
         onChange={selectValue}  
