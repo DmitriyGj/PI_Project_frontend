@@ -8,7 +8,18 @@ export type MeetingInfo = {
     participants: UserInfo[]
 }
 
+export type MeetingDateInterval = {
+    start?: Date | null
+    end?: Date | null
+}
+export enum CalendarViewType  {
+    day,
+    week,
+    month
+}
 export interface MeetingState {
     meetings: MeetingInfo[]
     editedMeeting: MeetingInfo | null
+    interval: MeetingDateInterval | null
+    viewType: CalendarViewType 
 }
