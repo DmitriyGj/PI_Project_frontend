@@ -1,5 +1,4 @@
-﻿import { CSSObject } from '@emotion/react';
-import { UserDetailInfo,UserInfo } from '@store/users/types';
+﻿import { UserDetailInfo,UserInfo } from '@store/users/types';
 import { CSSProperties } from 'react';
 
 export interface ISelectUsersProps {
