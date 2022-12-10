@@ -7,6 +7,7 @@ import type { RadioChangeEvent } from 'antd';
 import Style from './leftsidebar.module.scss';
 import type { Moment } from 'moment';
 
+import type { RootState } from '@store/index';
 import { MeetingDateInterval, CalendarViewType } from '../../store/meetings/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { setInterval, setViewType } from '@store/meetings/slice';
@@ -17,7 +18,7 @@ const { RangePicker } = DatePicker;
 
 const LeftSideBar = () => {
     const dispatch = useDispatch();
-    const viewType = useSelector(state => state.meetingsSlice.viewType); 
+    const viewType = useSelector((state:RootState) => state.meetingsSlice.viewType); 
     
     const onChangeDate = (values: RangePickerSharedProps<Moment>['value']) => {
         console.log(values);

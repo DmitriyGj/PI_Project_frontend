@@ -2,12 +2,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToDo, decValue, incValue, removeToDo } from '@store/test/slice';
 // import {authUser} from "@store/test/thunk";
 
-import {useState} from "react";
-import {directive} from "@babel/types";
-import {createAsyncThunk} from "@reduxjs/toolkit";
-import axios from "axios";
-import MeetingCard from "@components/meetingCard/MeetingCard";
-import MeetingSchedule from "@components/meetingSchedule/MeetingSchedule";
+import { useState } from 'react';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 const Test = () =>{
     const [ val, setVal ] = useState('');

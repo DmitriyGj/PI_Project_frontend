@@ -1,4 +1,4 @@
-import {UserInfo} from '../users/types';
+import { UserInfo } from '../users/types';
 
 export type MeetingInfo = {
     id: number

@@ -1,8 +1,7 @@
 import type { NextPage } from 'next';
-
 const Home: NextPage = () => {
     return (
-        <div style={{ display:'flex', justifyContent:'center' }}>
+        <div style={{ display:'flex', justifyContent:'center', width:'100%' }}>
             <h1>Hello World </h1>
         </div>
     );
