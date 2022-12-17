@@ -1,9 +1,16 @@
+$blueColor: #3D3BBC;
 .links{
     display: flex;
-    position: absolute;
-    column-gap: 10px;
+    align-self: center;
+    column-gap: 60px;
 
     .link{
         cursor: pointer;
+        color: #000;
+    }
+    .link:hover{
+        color:$blueColor;
+        padding-bottom: 4px;
+        border-bottom: 2px solid $blueColor;
     }
 }
