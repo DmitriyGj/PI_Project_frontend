@@ -1,9 +1,13 @@
 import Style from './meetingCard.module.scss';
 import React from 'react';
+import {useSelector} from 'react-redux';
+import { CalendarViewType } from '../../store/meetings/types';
 
-const MeetingCard=({ meeting, chooseDay=true, conflict=false })=>
+const MeetingCard=({ meeting, conflict=false})=>
 {
+    const viewType=useSelector(store=>store.meetingsSlice.viewType);
     const { name, invoker, place, progectName, dateTimeStart, dateTimeEnd , participants }=meeting;
+    const monthEnum={ 0:'января',1:'ферваля',2:'марта',3:'апреля',4:'мая',5:'июня',6: 'июля', 7:'августа', 8:'сентября', 9:'октября', 10:'ноября', 11:'декабря'};
 
     const duration = (start: Date, end: Date)=>{
         const hours=Math.trunc((end-start)/(1000*3600));
@@ -13,10 +17,18 @@ const MeetingCard=({ meeting, chooseDay=true, conflict=false })=>
 
     const showTime = (time: Date)=>
     {
-        return (time.getHours() ? time.getHours() : '00')+':'+(time.getMinutes() ? time.getMinutes() : '00');
+        return (time.getHours() ? getZero(time.getHours()) : '00')+':'+(time.getMinutes() ? getZero(time.getMinutes()) : '00');
+    };
+
+    const getZero=(num: Number)=>
+    {
+        return (num<10 ? '0'+num:num);
     };
     
-    const date = chooseDay?'':dateTimeStart.getDate()+'/'+(dateTimeStart.getMonth()+1)+'/'+dateTimeStart.getFullYear();
+    const date = (currentDate: Date)=>{
+        return currentDate.getDate() +' '+ monthEnum[currentDate.getMonth()];
+    };
+
     const start=showTime(dateTimeStart);
     const end=showTime(dateTimeEnd);
     const haveConflict=conflict?(Style.redStyle):(Style.emptyStyle);
@@ -26,22 +38,30 @@ const MeetingCard=({ meeting, chooseDay=true, conflict=false })=>
             <div className={Style.columns}>
                 <div>{name}</div>
                 <div className={Style.secondLine}>{progectName}</div>
-                <div>{date}</div>
+                <div></div>
             </div>
 
             <div className={Style.columns}>
                 <div className={Style.rightSide}>
-                    <div>
+
+                    <div className={Style.row}>
+                        <div className={Style.secondLine}> 
+                            {(viewType==CalendarViewType.day?'':date(dateTimeStart)) }
+                        </div>
                         <div className={haveConflict}>
                             {start}
                         </div>
                     </div>
                     <div className={Style.secondLine}> {duration(dateTimeStart, dateTimeEnd)}</div>
-                    <div>
+                    <div className={Style.row}>
+                        <div className={Style.secondLine}> 
+                            {date(dateTimeStart) !== date(dateTimeEnd) ? date(dateTimeEnd):''}
+                        </div>
                         <div className={haveConflict}>
                             {end}
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
