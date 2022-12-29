@@ -72,12 +72,12 @@ const AuthorizationForm = ({ user }: UserBlockProps) => {
                 ?
                 <div className={Style.authorizationForm__userBlock}>
                     {user.name}
-                    <Button type="primary" onClick={handleLogout}>
+                    <Button style={{ background: '#3D3BBC', borderColor: '#3D3BBC', color: 'white' }} onClick={handleLogout}>
                         Выход
                     </Button>
                 </div>
                 :
-                <Button type="primary" onClick={showModal}>
+                <Button style={{ background: '#3D3BBC', borderColor: '#3D3BBC', color: 'white' }} onClick={showModal}>
                     Вход
                 </Button>
             }
@@ -85,7 +85,7 @@ const AuthorizationForm = ({ user }: UserBlockProps) => {
             <Modal title="ВстречМен" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={250}
                 transitionName="" // костыль, убирающий кривую анимацию появления модалки
                 footer={[
-                    <Button key="submit" type="primary" onClick={handleOk}>
+                    <Button key="submit" style={{ background: '#3D3BBC', borderColor: '#3D3BBC', color: 'white' }} onClick={handleOk}>
                         Вход
                     </Button>
                 ]}
