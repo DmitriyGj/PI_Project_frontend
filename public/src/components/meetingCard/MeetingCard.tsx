@@ -7,7 +7,7 @@ const MeetingCard=({ meeting, conflict=false})=>
 {
     const viewType=useSelector(store=>store.meetingsSlice.viewType);
     const { name, invoker, place, progectName, dateTimeStart, dateTimeEnd , participants }=meeting;
-    const monthEnum={ 0:'января',1:'ферваля',2:'марта',3:'апреля',4:'мая',5:'июня',6: 'июля', 7:'августа', 8:'сентября', 9:'октября', 10:'ноября', 11:'декабря'};
+    const monthEnum={ 0:'января',1:'февраля',2:'марта',3:'апреля',4:'мая',5:'июня',6: 'июля', 7:'августа', 8:'сентября', 9:'октября', 10:'ноября', 11:'декабря'};
 
     const duration = (start: Date, end: Date)=>{
         const hours=Math.trunc((end-start)/(1000*3600));
