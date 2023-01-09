@@ -1,0 +1,22 @@
+.schedule{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    width: 100%;
+    
+}
+
+.date{
+    font-size: 24px;
+    margin: 10px;
+
+    div{
+        gap: 10px;
+        display: inline-block;
+    } 
+}
+
+.card{
+    margin-bottom: 38px;
+    margin-left: 30px;
+}

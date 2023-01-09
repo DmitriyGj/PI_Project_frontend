@@ -1,0 +1,16 @@
+.table {
+    margin-top: 20px;
+    width: 90%;
+    margin-left: 5%;
+    text-align: center;
+    :global {
+        .ant-table-thead > tr > th
+        {
+            background-color: #6462C9;
+            color: white;
+        }
+        .ant-table-tbody > tr > td {
+            background-color: white;
+        }
+ }
+}

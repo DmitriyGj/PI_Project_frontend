@@ -1,0 +1,42 @@
+$blueColor: #3D3BBC;
+.header{
+    display: flex;
+    justify-content: space-between;
+    height: auto;
+
+    align-items: center;
+    border-bottom: 1px solid $blueColor;
+}
+.headerCols{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 40px;
+    margin-right: 16px;
+}
+.header-group-nav{
+    display: flex;
+    flex-direction: row;
+}
+.header-group-nav__active{
+    display: flex;
+    flex-direction: row;
+}
+.buttonAuth{
+    background: $blueColor;
+    border-color: $blueColor;
+    color: $blueColor;
+}
+
+.header__rightSubmenu {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.btnmain {
+    background-color: $blueColor;
+    border-color:$blueColor;
+    color: white;
+}
