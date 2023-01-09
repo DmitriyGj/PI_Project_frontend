@@ -40,6 +40,24 @@ const Header = () => {
             href: '/meetings',
             label: 'Встречи'
 
+        },
+        {
+            id: 4,
+            href: '/usersTable',
+            label: 'Таблица Пользователи'
+
+        },
+        {
+            id: 4,
+            href: '/meetingsTable',
+            label: 'Таблица Встречи'
+
+        },
+        {
+            id: 4,
+            href: '/projectsTable',
+            label: 'Таблица Проекты'
+
         }
     ];
 
