@@ -6,7 +6,7 @@ import { UserDetailInfo, UsersState, UserRole } from './types';
 
 const initialState = { users : [{ id:1,name:'Иван Иванов',email:'zxc2006@mail.ru',login:'ivanpro',organization:'Amazon'},
 {id:2,name:'Владислав Свинотов',email:'turbovoin@mail.ru',login:'vladik',organization:'Google'}], 
-currentUser : { id:2,name:'Владислав Свинотов',email:'turbovoin@mail.ru',login:'vladik',organization:'Google', role: UserRole.ADMIN } } as UsersState;
+currentUser : { id:2,name:'Владислав Свин',email:'turbovoin@mail.ru',login:'vladik',organization:'Google', role: UserRole.ADMIN } } as UsersState;
 
 const usersSlice = createSlice({
     name: 'users',

@@ -1,28 +1,34 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { setOpened } from '@store/sidebar/slice';
+import { getOpened } from '@store/sidebar/selectors';
+import { setEditedMeeting } from '@store/meetings/slice';
+
+
 import { Button, Drawer } from 'antd';
-import { useState } from 'react';
-import { MenuUnfoldOutlined } from '@ant-design/icons';
+// import { useState } from 'react';
+// import { MenuUnfoldOutlined } from '@ant-design/icons';
 import { SideBarProps } from './types';
 
-const SideBar = ({ width, ...rest }: SideBarProps): JSX.Element => {
-    const [ open, setOpen ] = useState(false);
+const SideBar = ({ width, title= 'NoTitle', buttonText, content, ...rest }: SideBarProps): JSX.Element => {
+    const dispatch = useDispatch();
+    const opened = useSelector(getOpened);
 
     const showDrawer = () => {
-        setOpen(true);
+        dispatch(setOpened(true));
     };
 
     const onClose = () => {
-        setOpen(false);
+        dispatch(setEditedMeeting(null));
+        dispatch(setOpened(false));
     };
 
     return (
         <div {...rest}>
             <Button type='primary' shape='round' onClick={showDrawer}>
-                <MenuUnfoldOutlined />
+                {buttonText}
             </Button>
-            <Drawer width={width} title='Basic Drawer' placement='right' onClose={onClose} open={open}>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
+            <Drawer width={width} title={title} placement='right' onClose={onClose} open={opened}>
+                {content}
             </Drawer>
         </div>
     );

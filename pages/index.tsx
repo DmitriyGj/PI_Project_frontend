@@ -1,4 +1,6 @@
+
 import type { NextPage } from 'next';
+
 const Home: NextPage = () => {
     return (
         <div style={{ display:'flex', justifyContent:'center', width:'100%' }}>

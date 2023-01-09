@@ -1,14 +1,20 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { setOpened } from '@store/sidebar/slice';
+import { setEditedMeeting } from '@store/meetings/slice';
+
+import SideBar from '@components/sideBar';
+import MeetingForm from '@components/meetingForm';
+
 import MeetingCard from '@components/meetingCard/MeetingCard';
 import Style from './meetingSchedule.module.scss';
-import { count } from 'console';
-import { useSelector} from 'react-redux';
-import { CalendarViewType } from '../../store/meetings/types';
+import { CalendarViewType, MeetingInfo } from '../../store/meetings/types';
 import moment from 'moment';
 import { useState } from 'react';
 
 const MeetingSchedule=()=>{
     const viewType=useSelector(store=>store.meetingsSlice.viewType);
     
+    const dispatch = useDispatch();
 
     const monthEnum={ 0:'января',1:'февраля',2:'марта',3:'апреля',4:'мая',5:'июня',6: 'июля', 7:'августа', 8:'сентября', 9:'октября', 10:'ноября', 11:'декабря'};
     const dayEnum={ 0:'ПН', 1:'ВТ', 2:'СР', 3:'ЧТ',4:'ПТ',5:'СБ',6:'ВС' };
@@ -18,6 +24,11 @@ const MeetingSchedule=()=>{
     const meetings=useSelector(store=>store.meetingsSlice.meetings);
     
     const schedule=[];
+
+    const addEditedMeeting = (meeting: MeetingInfo) => {
+        dispatch(setEditedMeeting(meeting)); 
+        dispatch(setOpened(true));
+    };
 
     for(let i = 0;  i < meetings.length; i++){
         let isConflict=false;
@@ -106,8 +117,10 @@ const MeetingSchedule=()=>{
 
         dateInterval = curruntDateInterval;
 
+        
+
         schedule.push(
-            <div key={meetings[i].id} className={Style.card}>
+            <div key={meetings[i].id} className={Style.card} onClick={()=>{addEditedMeeting(meetings[i])}}>
                 <MeetingCard meeting={meetings[i]} conflict={isConflict}/>
             </div>
         );
@@ -115,6 +128,7 @@ const MeetingSchedule=()=>{
 
     return(
         <div className={Style.schedule}>
+            <SideBar buttonText={'+'} title={'Добавить встречу'} content={<MeetingForm/>}/>
             {schedule}
         </div>
     );

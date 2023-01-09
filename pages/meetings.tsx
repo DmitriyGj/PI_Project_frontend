@@ -9,7 +9,6 @@ const Meetings : NextPage = () =>{
         <>
             <MeetingSchedule/>
         </>
-       
     );
 };
 

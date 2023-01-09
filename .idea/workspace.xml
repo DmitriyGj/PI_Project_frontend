@@ -5,8 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c413a8ed-1d06-46db-b213-e044da4d5c04" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/meetings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/meetings.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/src/components/meetingCard/MeetingCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/public/src/components/meetingCard/MeetingCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/src/components/meetingCard/meetingCard.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/public/src/components/meetingCard/meetingCard.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/src/components/meetingForm/MeetingForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/public/src/components/meetingForm/MeetingForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/src/components/meetingSchedule/MeetingSchedule.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/public/src/components/meetingSchedule/MeetingSchedule.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/src/components/select_users/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/src/components/select_users/select-users-style.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/src/components/select_users/select_users.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/src/components/select_users/types.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/src/components/sideBar/SideBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/public/src/components/sideBar/SideBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/src/store/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/src/store/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/src/store/meetings/slice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/src/store/meetings/slice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/src/store/users/slice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/src/store/users/slice.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,20 +48,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "yarn",
-    "ts.external.directory.path": "/Users/seaborgium/Documents/University/PI/Project/PI_Project_frontend/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/seaborgium/Documents/University/PI/Project/PI_Project_frontend/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -59,6 +71,7 @@
       <option name="presentableId" value="Default" />
       <updated>1665767742465</updated>
       <workItem from="1672301745837" duration="572000" />
+      <workItem from="1673278295441" duration="16000" />
     </task>
     <servers />
   </component>

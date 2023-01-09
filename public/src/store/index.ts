@@ -5,6 +5,7 @@ import userSlice from './users/slice';
 import testSlice from './test/slice';
 import meetingsSlice from './meetings/slice';
 import appSlice from './app/slice';
+import sidebarSlice from './sidebar/slice';
 
 
 const MeetingManagerStore = configureStore({
@@ -12,7 +13,8 @@ const MeetingManagerStore = configureStore({
         userSlice,
         testSlice,
         appSlice,
-        meetingsSlice
+        meetingsSlice,
+        sidebarSlice
     }
 });
 

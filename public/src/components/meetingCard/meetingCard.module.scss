@@ -7,6 +7,10 @@
     border-radius: 2px;
 }
 
+.meetingCard:hover{
+    border: 3px solid #a8a6a6 !important;
+}
+
 .columns{
     margin-left: 19px;
     margin-right: 19px;
@@ -27,8 +31,6 @@
         background-color: #FF4D4F;
     }
 
-    .emptyStyle{}
-
     .secondLine{
         margin-top: -5px;
         margin-left: 4px;
@@ -39,8 +41,8 @@
     }
 
     .row{
-        justify-content: end;
         display: flex;
+        justify-content: flex-end;
         gap: 10px;
 
         .secondLine{

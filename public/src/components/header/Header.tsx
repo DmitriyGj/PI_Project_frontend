@@ -7,8 +7,8 @@ import NavigationMenu from '@components/navigationMenu/NavigationMenu';
 
 import { LinkProps } from '../navigationMenu/types';
 
-import { getCurrentUserRole } from '@store/meetings/selectors';
-import { getCurrentUser } from '@store/users/selectors';
+// import {  } from '@store/meetings/selectors';
+import { getCurrentUser, getCurrentUserRole } from '@store/users/selectors';
 
 import { UserRole } from '@store/users/types';
 
