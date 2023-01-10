@@ -23,28 +23,24 @@ const MeetingForm = () => {
     const editedMeeting = useSelector(getEditedMeeting);
     const currentUser = useSelector(getCurrentUser);
 
+    const [ dateTimeStart, setDateTimeStart ] = useState();
+    const [ dateTimeEnd, setDateTimeEnd ] = useState();
+    const [ checked, setChecked ] = useState(false);
+
     const dispatch = useDispatch();
 
-    
     const onClose = () => {
         dispatch(setEditedMeeting(null));
         dispatch(setOpened(false));
         setChecked(false);
     };
 
-    
-    const [ changeDate, setchangeDate ] = useState();
-    const [ checked, setChecked ] = useState(false);
-
-
     const onChange = (e: CheckboxChangeEvent) => {
         setChecked(e.target.checked);
     };
 
     const dateFormat = 'DD.MM.YY';
-
     const timeFormat = 'HH:mm';
-
     const datetimeFormat = 'DD.MM.YY | HH:mm';
 
     let startDateTime = moment(editedMeeting?.dateTimeStart);
