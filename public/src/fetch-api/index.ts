@@ -1,0 +1,1 @@
+﻿export { baseURL } from './config';
