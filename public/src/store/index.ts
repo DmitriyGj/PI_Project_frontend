@@ -1,4 +1,4 @@
-﻿import { configureStore } from '@reduxjs/toolkit';
+﻿import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper';
 
 import userSlice from './users/slice';
@@ -15,7 +15,8 @@ const MeetingManagerStore = configureStore({
         appSlice,
         meetingsSlice,
         sidebarSlice
-    }
+    },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
 });
 
 const SetupStore = () => MeetingManagerStore;
