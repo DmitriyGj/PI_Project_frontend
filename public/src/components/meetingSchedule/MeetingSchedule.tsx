@@ -13,17 +13,13 @@ import { useState } from 'react';
 
 const MeetingSchedule=()=>{
     const viewType=useSelector(store=>store.meetingsSlice.viewType);
-    
-    const dispatch = useDispatch();
-
+    const meetings=useSelector(store=>store.meetingsSlice.meetings);
     const monthEnum={ 0:'января',1:'февраля',2:'марта',3:'апреля',4:'мая',5:'июня',6: 'июля', 7:'августа', 8:'сентября', 9:'октября', 10:'ноября', 11:'декабря'};
     const dayEnum={ 0:'ПН', 1:'ВТ', 2:'СР', 3:'ЧТ',4:'ПТ',5:'СБ',6:'ВС' };
-
     let dateInterval = { start : '', end : '' };
-
-    const meetings=useSelector(store=>store.meetingsSlice.meetings);
-    
     const schedule=[];
+    
+    const dispatch = useDispatch();
 
     const addEditedMeeting = (meeting: MeetingInfo) => {
         dispatch(setEditedMeeting(meeting)); 

@@ -13,6 +13,6 @@ export const getUsers = (state: RootState): UserInfo[] => {
     return state.userSlice.users;
 };
 
-export const getEditedMeeting = (state: RootState): UserInfo => {
+export const getEditedMeeting = (state: RootState) => {
     return state.meetingsSlice.editedMeeting;
 };

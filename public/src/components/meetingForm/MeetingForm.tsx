@@ -20,12 +20,17 @@ import { SelectUsers } from '@components/selectUsers/SelectUsers';
 const MeetingForm = () => {
     // добавить состояния для дат и передать их в value 
     const users = useSelector(getUsers);
-    const editedMeeting = useSelector(getEditedMeeting);
+    let editedMeeting = JSON.parse(JSON.stringify(useSelector(getEditedMeeting)));
     const currentUser = useSelector(getCurrentUser);
 
-    const [ dateTimeStart, setDateTimeStart ] = useState('');
-    const [ dateTimeEnd, setDateTimeEnd ] = useState('');
-    const [ checked, setChecked ] = useState(false);
+    let startEdited = moment(editedMeeting?.dateTimeStart);
+    let endEdeted = moment(editedMeeting?.dateTimeEnd);
+
+    let startDate = startEdited.clone().format('YYYY-MM-DD');
+    let endDate = endEdeted.clone().format('YYYY-MM-DD');
+
+    let startTime =startEdited.clone().format('HH:mm');
+    let endTime = endEdeted.clone().format('HH:mm');
 
     const dateFormat = 'DD.MM.YY';
     const timeFormat = 'HH:mm';
@@ -34,30 +39,57 @@ const MeetingForm = () => {
     const dispatch = useDispatch();
 
     const onClose = () => {
-        setChecked(false);
-        setDateTimeStart('');
-        dispatch(setEditedMeeting(null));
+        dispatch(setEditedMeeting({ id: -1, name:'', invoker: '', place:'', link:'', progectName:'', dateTimeStart: new Date(), dateTimeEnd: new Date(), participants : [] }));
         dispatch(setOpened(false));
     };
 
     const onCheckBox = (e: CheckboxChangeEvent) => {
-        setChecked(e.target.checked);
+        if(!e.target.checked){
+            editedMeeting.dateTimeEnd = new Date(startDate + ' ' + endTime);
+            dispatch(setEditedMeeting(editedMeeting));
+        } else{
+            editedMeeting.dateTimeEnd = new Date(startDate + ' ' + endTime).setDate(new Date(startDate + ' ' + endTime).getDate() + 1);
+            dispatch(setEditedMeeting(editedMeeting));
+        }
+    };
+
+    const onName = (e) => {
+        editedMeeting.name = e.target.value;
+        dispatch(setEditedMeeting(editedMeeting));
+    };
+
+    const onPlace = (e) => {
+        editedMeeting.place = e.target.value;
+        dispatch(setEditedMeeting(editedMeeting));
+    };
+
+    const onLink = (e) => {
+        editedMeeting.link = e.target.value;
+        dispatch(setEditedMeeting(editedMeeting));
     };
 
     const onDatePickerStart = (e) => {
-        setDateTimeStart(e);
+        editedMeeting.dateTimeStart = new Date(e.clone().format('YYYY-MM-DD') + ' ' + startTime);
+        dispatch(setEditedMeeting(editedMeeting));
     };
 
-    let startDateTime = moment(editedMeeting?.dateTimeStart);
-    let endDateTime = moment(editedMeeting?.dateTimeEnd);
+    const onTimePickerStart = (e) => {
+        editedMeeting.dateTimeStart = new Date(startDate + ' ' + e.clone().format('HH:mm'));
+        dispatch(setEditedMeeting(editedMeeting));
+    };
 
-    let startDate =startDateTime.clone().format(dateFormat);
-    let endDate =endDateTime.clone().format(dateFormat);
+    const onDatePickerEnd = (e) => {
+        editedMeeting.dateTimeEnd = new Date(e.clone().format('YYYY-MM-DD HH:mm'));
+        dispatch(setEditedMeeting(editedMeeting));
+    };
 
+    const onTimePickerEnd = (e) => {
+        editedMeeting.dateTimeEnd = new Date(startDate + ' ' + e.clone().format('HH:mm'));
+        dispatch(setEditedMeeting(editedMeeting));
+    };
 
-    const disabledDate: RangePickerProps['disabledDate'] = (current) => {
-        // Can not select days before today and today
-        return current < dayjs().startOf('day');
+    const disabledDate: RangePickerProps['disabledDate'] = (date) => {
+        return date < dayjs().startOf('day');
     };
 
 
@@ -65,28 +97,26 @@ const MeetingForm = () => {
         <>
             <div className={Style.main}>
                 <h3>Название встречи</h3>
-                <Input placeholder="Введите название встречи" value={editedMeeting? editedMeeting.name : ''}/>
+                <Input placeholder="Введите название встречи" value={editedMeeting.name} onChange={onName}/>
                 
                 <h3>Дата проведения</h3>
-                {/* <DatePicker value={editedMeeting? dayjs(startDateTime, dateFormat) : ''} placement="bottomRight" placeholder={'Выберите дату'} disabledDate={disabledDate} className={Style.width} format={dateFormat} /> */}
-                <DatePicker value={dateTimeStart} onChange={onDatePickerStart} placement="bottomRight" placeholder={'Выберите дату'} disabledDate={disabledDate} className={Style.width} format={dateFormat} />
+                <DatePicker value={moment(startEdited)} onChange={onDatePickerStart} placement="bottomRight" placeholder={'Выберите дату'} disabledDate={disabledDate} className={Style.width} format={dateFormat} />
 
                 <h3>Время встречи</h3>
-                <TimePicker value={editedMeeting? dayjs(startDateTime, timeFormat) : ''} placement="bottomRight" placeholder={'Время начала'} className={Style.width} format={timeFormat} />
+                <TimePicker value={moment(startEdited)} onChange={onTimePickerStart} placement="bottomRight" placeholder={'Время начала'} className={Style.width} format={timeFormat} />
 
-                <Checkbox className={Style.margintop} checked={ editedMeeting? checked || startDate !== endDate : checked } onChange={onCheckBox}>Иная дата окончания</Checkbox>
-                {checked || startDate !== endDate
+                <Checkbox className={Style.margintop} checked={ startDate !== endDate } onChange={onCheckBox}>Иная дата окончания</Checkbox>
+                {startDate !== endDate
                     ? <>
-                        <DatePicker value={editedMeeting? dayjs(endDateTime, datetimeFormat) : ''} placement="bottomRight" showTime placeholder='Выберите дату окончания'  format={datetimeFormat} className={Style.another} />
+                        <DatePicker value={moment(endEdeted)} onChange={onDatePickerEnd} placement="bottomRight" showTime placeholder='Выберите дату окончания' format={datetimeFormat} className={Style.another} />
                     </>
-                    : <TimePicker value={editedMeeting? dayjs(endDateTime, timeFormat) : ''} placement="bottomRight" placeholder={"Время окончания"} className={Style.another} format={timeFormat} />
+                    : <TimePicker value={moment(endEdeted)} onChange={onTimePickerEnd} placement="bottomRight" placeholder={"Время окончания"} className={Style.another} format={timeFormat} />
                 }
                 
-                {/* не хватает интернет адреса */}
                 <h3>Место проведения</h3>
-                <Input addonBefore="http://" value={editedMeeting? editedMeeting.place : ''}/> 
+                <Input addonBefore="http://" value={editedMeeting.place } onChange={onPlace}/> 
                 <div className={Style.andor}>и/или</div>
-                <Input placeholder="Локация" value={editedMeeting? editedMeeting.place : ''}/>
+                <Input placeholder="Локация" value={editedMeeting.link } onChange={onLink}/>
 
                 <h3>Проекты</h3>
                 <SelectUsers

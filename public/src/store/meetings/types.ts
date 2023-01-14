@@ -5,6 +5,7 @@ export type MeetingInfo = {
     name: string
     invoker: string
     place: string
+    link: string
     progectName: string 
     dateTimeStart: Date
     dateTimeEnd: Date

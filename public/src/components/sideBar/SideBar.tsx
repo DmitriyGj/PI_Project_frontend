@@ -4,6 +4,7 @@ import { getOpened } from '@store/sidebar/selectors';
 import { setEditedMeeting } from '@store/meetings/slice';
 
 
+
 import { Button, Drawer } from 'antd';
 // import { useState } from 'react';
 // import { MenuUnfoldOutlined } from '@ant-design/icons';
@@ -18,7 +19,7 @@ const SideBar = ({ width, title= 'NoTitle', buttonText, content, ...rest }: Side
     };
 
     const onClose = () => {
-        dispatch(setEditedMeeting(null));
+        dispatch(setEditedMeeting({ id: -1, name:'', invoker: '', place:'', link:'', progectName:'', dateTimeStart: new Date(), dateTimeEnd: new Date(), participants : [] }));
         dispatch(setOpened(false));
     };
 
