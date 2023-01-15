@@ -1,13 +1,19 @@
 export type UserInfo = {
     id: number
     name: string
+    lastName: string
+    patronymic: string
     email: string
     login: string
-    organization: string
+    organization: {
+        id: number
+        name: string
+    }
 }
 
 export type UserDetailInfo = UserInfo & {
     role: UserRole
+    jwt?: string
 }
 
 export interface UsersState {
@@ -16,7 +22,7 @@ export interface UsersState {
 }
 
 export enum UserRole {
-    'ADMIN' = 'admin',
-    'USER' = 'user',
-    'NONE' = 'none'
+    'ADMIN' = 'ADMIN',
+    'USER' = 'USER',
+    'NONE' = 'NONE'
 }

@@ -14,8 +14,8 @@ import type {  RangePickerProps } from 'antd/es/date-picker';
 import moment from 'moment';
 import dayjs from 'dayjs';
 import { SelectUsers } from '@components/selectUsers/SelectUsers';
-// import { ISelectUsersProps, ISelectUsersState } from '@components/selectUsers';
-// import { UserRole } from '@store/users/types';
+
+
 
 const MeetingForm = () => {
     // добавить состояния для дат и передать их в value 
@@ -59,7 +59,6 @@ const MeetingForm = () => {
         return current && current < dayjs().endOf('day');
     };
 
-
     return (
         <>
             <div className={Style.main}>
@@ -70,17 +69,37 @@ const MeetingForm = () => {
                 <Input placeholder="Введите место проведения встречи" value={editedMeeting? editedMeeting.place : ''}/> */}
 
                 <h3>Дата проведения</h3>
-                <DatePicker value={editedMeeting? dayjs(startDateTime, dateFormat) : ''} placement="bottomRight" placeholder={'Выберите дату'} disabledDate={disabledDate} className={Style.width} format={dateFormat} />
+                <DatePicker value={editedMeeting? dayjs(startDateTime, dateFormat) : ''}
+                            placement="bottomRight"
+                            placeholder={'Выберите дату'}
+                            disabledDate={disabledDate}
+                            className={Style.width}
+                            format={dateFormat} />
 
                 <h3>Время встречи</h3>
-                <TimePicker value={editedMeeting? dayjs(startDateTime, timeFormat) : ''} placement="bottomRight" placeholder={'Время начала'} className={Style.width} format={timeFormat} />
+                <TimePicker value={editedMeeting? dayjs(startDateTime, timeFormat) : ''}
+                            placement="bottomRight"
+                            placeholder={'Время начала'}
+                            className={Style.width}
+                            format={timeFormat} />
 
-                <Checkbox className={Style.margintop} checked={ editedMeeting? checked || startDate !== endDate : checked } onChange={onChange}>Иная дата окончания</Checkbox>
+                <Checkbox className={Style.margintop}
+                          checked={ editedMeeting? checked || startDate !== endDate : checked }
+                          onChange={onChange}>Иная дата окончания</Checkbox>
                 {checked || startDate !== endDate
                     ? <>
-                        <DatePicker value={editedMeeting? dayjs(endDateTime, datetimeFormat) : ''} placement="bottomRight" showTime placeholder='Выберите дату окончания'  format={datetimeFormat} className={Style.another} />
+                        <DatePicker value={editedMeeting? dayjs(endDateTime, datetimeFormat) : ''}
+                                    placement="bottomRight"
+                                    showTime
+                                    placeholder='Выберите дату окончания'
+                                    format={datetimeFormat}
+                                    className={Style.another} />
                     </>
-                    : <TimePicker value={editedMeeting? dayjs(endDateTime, timeFormat) : ''} placement="bottomRight" placeholder={"Время окончания"} className={Style.another} format={timeFormat} />
+                    : <TimePicker value={editedMeeting? dayjs(endDateTime, timeFormat) : ''}
+                                  placement="bottomRight"
+                                  placeholder={"Время окончания"}
+                                  className={Style.another}
+                                  format={timeFormat} />
                 }
                 
                 {/* не хватает интернет адреса */}

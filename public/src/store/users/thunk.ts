@@ -1,28 +1,32 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { setCurrentUser } from './slice';
 import { UserDetailInfo, UserRole } from './types';
-import axios from 'axios';
-// import { Simulate } from 'react-dom/test-utils';
-// import error = Simulate.error;
+import { BaseAPI } from 'fetch-api/base-api';
+import { setCookie } from 'cookies-next';
+import { MeetingsAPI } from 'fetch-api/meeting-api';
+import { setMeetings } from '@store/meetings/slice';
+
+type AuthData = {
+    login: string
+    password: string
+}
 
 export const authUser = createAsyncThunk('users/authUser', 
-    async (value: number, { getState, dispatch, rejectWithValue }) => {
-
-        // try {
-        //     const res = axios('https://jsonplaceholder.ttypicode.com/users?_limit=10')
-        //         .catch(() => {
-        //            throw new Error("Ошибка");
-        //         });
-        // } catch (error){
-        //     return rejectWithValue(error.message);
-        // }
-
-        const res = axios('https://jsonplaceholder.typicode.com/users?_limit=10')
-            .then(response =>  response.data)
+    async ({ login, password }: AuthData, { getState, dispatch, rejectWithValue }) => {
+        const user = await BaseAPI.authRequest({ login, password })
+            .then(response =>response.data)
             .catch((error) => {
                 return rejectWithValue(error.message);
             });
-        return res;
+        setCookie('user', user);
+        return user;
+    }
+);
+
+export const logoutUser = createAsyncThunk('users/logoutUser', 
+    async (_, { getState, dispatch, rejectWithValue }) => {
+        localStorage.removeItem('user');
+        return null;
     }
 );
 
@@ -34,7 +38,7 @@ export const fetchUsers = createAsyncThunk('users/fetchUsers',
             name: '',
             email: '',
             login: '',
-            role: UserRole.none,
+            role: UserRole.NONE,
             organization: ''
         };
         dispatch(setCurrentUser(data));

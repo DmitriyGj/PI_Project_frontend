@@ -10,18 +10,20 @@ import Style from './meetingSchedule.module.scss';
 import { CalendarViewType, MeetingInfo } from '../../store/meetings/types';
 import moment from 'moment';
 import { useState } from 'react';
+import { getCurrentUser } from '@store/users/selectors';
 
 const MeetingSchedule=()=>{
     const viewType=useSelector(store=>store.meetingsSlice.viewType);
     
     const dispatch = useDispatch();
 
-    const monthEnum={ 0:'января',1:'февраля',2:'марта',3:'апреля',4:'мая',5:'июня',6: 'июля', 7:'августа', 8:'сентября', 9:'октября', 10:'ноября', 11:'декабря'};
+    const monthEnum={ 0:'января',1:'февраля',2:'марта',3:'апреля',4:'мая',5:'июня',6: 'июля', 7:'августа', 8:'сентября', 9:'октября', 10:'ноября', 11:'декабря' };
     const dayEnum={ 0:'ПН', 1:'ВТ', 2:'СР', 3:'ЧТ',4:'ПТ',5:'СБ',6:'ВС' };
 
     let dateInterval = { start : '', end : '' };
 
     const meetings=useSelector(store=>store.meetingsSlice.meetings);
+    const currentUser = useSelector(getCurrentUser);
     
     const schedule=[];
 
@@ -40,13 +42,13 @@ const MeetingSchedule=()=>{
             isConflict = isConflict || (meetings[i].dateTimeEnd > meetings[i+1].dateTimeStart);
         }
 
-        let curDate = moment(meetings[i].dateTimeStart);
+        const curDate = moment(meetings[i].dateTimeStart);
         
-        let monday = moment(new Date(curDate.clone().weekday(0).format('YYYYY/MM/DD')));
-        let sunday = moment(new Date(curDate.clone().weekday(6).format('YYYYY/MM/DD')));
+        const monday = moment(new Date(curDate.clone().weekday(0).format('YYYYY/MM/DD')));
+        const sunday = moment(new Date(curDate.clone().weekday(6).format('YYYYY/MM/DD')));
 
-        let startMonth = moment(new Date(curDate.clone().startOf('month').format('YYYYY/MM/DD')));
-        let endMonth = moment(new Date(curDate.clone().endOf('month').format('YYYYY/MM/DD')));
+        const startMonth = moment(new Date(curDate.clone().startOf('month').format('YYYYY/MM/DD')));
+        const endMonth = moment(new Date(curDate.clone().endOf('month').format('YYYYY/MM/DD')));
 
         let curruntDateInterval = { start: '', end: '' };
 
@@ -116,22 +118,25 @@ const MeetingSchedule=()=>{
         }
 
         dateInterval = curruntDateInterval;
-
         
 
         schedule.push(
-            <div key={meetings[i].id} className={Style.card} onClick={()=>{addEditedMeeting(meetings[i])}}>
+            <div key={meetings[i].id} className={Style.card} onClick={()=>{addEditedMeeting(meetings[i]);}}>
                 <MeetingCard meeting={meetings[i]} conflict={isConflict}/>
             </div>
         );
     }
 
     return(
-        <div className={Style.schedule}>
-            <SideBar buttonText={'+'} title={'Добавить встречу'} content={<MeetingForm/>}/>
-            {schedule}
+        <div className={Style.schedule}>{
+            currentUser &&  
+            <>
+                <SideBar buttonText={'+'} title={'Добавить встречу'} content={<MeetingForm/>}/>
+                {schedule}
+            </>
+        }
         </div>
     );
-}
+};
 
 export default MeetingSchedule;

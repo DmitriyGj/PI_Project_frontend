@@ -2,6 +2,11 @@ import { Button, Modal, Input } from 'antd';
 import React, { useState } from 'react';
 import Style from './authorizationForm.module.scss';
 import 'antd/dist/antd.css';
+import { useDispatch } from 'react-redux';
+import { authUser } from '@store/users/thunk';
+import { useAppDispatch } from '@store/index';
+import { setCurrentUser } from '@store/users/slice';
+import { removeCookies } from 'cookies-next';
 
 
 type UserBlockProps = {
@@ -9,31 +14,20 @@ type UserBlockProps = {
 }
 
 type User = {
-    id: number,
+    id: number
     name: string
 }
 
 type AuthorizationFormState = {
-    login: string,
+    login: string
     password: string
 }
 
-
-/// Блок, который отображает либо кнопку вход для последующего ввода логина-пароля в модалке,
-/// либо имя-фамилию и кнопку выход.
-///
-/// Примеры использования:
-///
-///   ```
-///   <AuthorizationForm user={undefined} />
-///   ```
-///
-///   ```
-///   <AuthorizationForm user={{ id: 1, name: 'Петр Петров' }} />
 ///   ```
 const AuthorizationForm = ({ user }: UserBlockProps) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [authorizationFormState, setAuthorizationFormState] = useState({ login: '', password: '' });
+    const [ isModalOpen, setIsModalOpen ] = useState(false);
+    const [ authorizationFormState, setAuthorizationFormState ] = useState<AuthorizationFormState>({ login: '', password: '' });
+    const dispatch = useAppDispatch();
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -50,10 +44,13 @@ const AuthorizationForm = ({ user }: UserBlockProps) => {
     };
 
     const handleLogin = () => {
+        dispatch(authUser({ ...authorizationFormState }));
         // TODO: fetch        
     };
 
     const handleLogout = () => {
+        dispatch(setCurrentUser(null));
+        removeCookies('user');
         // TODO: fetch
     };
 
@@ -82,10 +79,10 @@ const AuthorizationForm = ({ user }: UserBlockProps) => {
                 </Button>
             }
 
-            <Modal title="ВстречМен" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={250}
-                transitionName="" // костыль, убирающий кривую анимацию появления модалки
+            <Modal title='ВстречМен' open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={250}
+                transitionName='' // костыль, убирающий кривую анимацию появления модалки
                 footer={[
-                    <Button key="submit" style={{ background: '#3D3BBC', borderColor: '#3D3BBC', color: 'white' }} onClick={handleOk}>
+                    <Button key='submit' style={{ background: '#3D3BBC', borderColor: '#3D3BBC', color: 'white' }} onClick={handleOk}>
                         Вход
                     </Button>
                 ]}

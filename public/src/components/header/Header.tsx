@@ -1,5 +1,5 @@
 import style from './header.module.scss';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 import SideBar from '@components/sideBar/SideBar';
@@ -17,11 +17,13 @@ import Logo from '@components/logo/Logo';
 import AuthorizationForm from '@components/authorizationForm/AuthorizationForm';
 
 import { Button } from 'antd';
+import { setCurrentUser } from '@store/users/slice';
 
 
 const Header = () => {
     const userStatus = useSelector(getCurrentUserRole);
     const currentUser = useSelector(getCurrentUser);
+    const dispatch = useDispatch();
 
     const linksInfo: LinkProps[] = [
         {
@@ -54,7 +56,10 @@ const Header = () => {
                 </div>
                 <div>
                     {currentUser? 
-                        <Button style={{ background: '#3D3BBC', borderColor: '#3D3BBC', color: 'white' }}>Выход</Button>
+                        <>
+                            <p>{currentUser.name} {currentUser.lastName}</p>
+                            <Button style={{ background: '#3D3BBC', borderColor: '#3D3BBC', color: 'white' }} onClick={(e) => dispatch(setCurrentUser(null)) }>Выход</Button>
+                        </>
                         : 
                         // <Button className={style.btnmain}>Выход</Button>
                         <div className={style.header__rightSubmenu}>

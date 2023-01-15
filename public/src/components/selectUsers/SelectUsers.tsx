@@ -25,7 +25,7 @@ export const SelectUsers =  ({ selectedValue: value, className, items, style, on
     const filterHandler = (input: string, option: DefaultOptionType | undefined): boolean => {
         const children = option?.children as unknown as ReactJSXElement;
         const childrenOfChildren = children.props.children as ReactNode [];
-        const contains = childrenOfChildren.some(node => node?.toString().includes(input));
+        const contains = childrenOfChildren.some(node => node?.toString().toLowerCase().includes(input.toLowerCase()));
         return contains;
     };
 
