@@ -7,6 +7,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 import UserForm from '@components/userForm/UserForm';
+import ProjectForm from '@components/projectForm/ProjectForm';
 
 const Test = () =>{
     const [ val, setVal ] = useState('');
@@ -38,6 +39,7 @@ const Test = () =>{
                 <button onClick={()=>dispatch(authUser())}>Получить данные с сервера</button>
                 
                 <SideBar buttonText={'+'} title={'Добавить пользователя'} content={<UserForm/>}/>
+                <SideBar buttonText={'+'} title={'Добавить проект'} content={<ProjectForm/>}/>
             </div>
         </>
        
