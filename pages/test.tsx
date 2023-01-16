@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { addToDo, decValue, incValue, removeToDo } from '@store/test/slice';
 // import {authUser} from "@store/test/thunk";
-
+import SideBar from '@components/sideBar';
 import { useState } from 'react';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+
+import UserForm from '@components/userForm/UserForm';
 
 const Test = () =>{
     const [ val, setVal ] = useState('');
@@ -34,6 +36,8 @@ const Test = () =>{
                 <button onClick={()=>dispatch(incValue())}>Увеличить</button>
                 <button onClick={()=>dispatch(decValue())}>Уменьшить</button>
                 <button onClick={()=>dispatch(authUser())}>Получить данные с сервера</button>
+                
+                <SideBar buttonText={'+'} title={'Добавить пользователя'} content={<UserForm/>}/>
             </div>
         </>
        
