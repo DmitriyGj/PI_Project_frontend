@@ -5,10 +5,11 @@ export type MeetingInfo = {
     name: string
     invoker: string
     place: string
+    link: string
     progectName: string 
     dateTimeStart: Date
     dateTimeEnd: Date
-    participants: UserInfo[]
+    participants: string[]
 }
 
 export type MeetingDateInterval = {
@@ -22,7 +23,7 @@ export enum CalendarViewType  {
 }
 export interface MeetingState {
     meetings: MeetingInfo[]
-    editedMeeting: MeetingInfo | null
+    editedMeeting: MeetingInfo 
     interval: MeetingDateInterval | null
     viewType: CalendarViewType 
 }

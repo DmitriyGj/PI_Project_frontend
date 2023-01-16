@@ -11,6 +11,7 @@ import { CalendarViewType, MeetingInfo } from '../../store/meetings/types';
 import moment from 'moment';
 import { useState } from 'react';
 import { getCurrentUser } from '@store/users/selectors';
+import { getMeetings } from '@store/meetings/selectors';
 
 const MeetingSchedule=()=>{
     const viewType=useSelector(store=>store.meetingsSlice.viewType);
@@ -19,16 +20,16 @@ const MeetingSchedule=()=>{
 
     const monthEnum={ 0:'января',1:'февраля',2:'марта',3:'апреля',4:'мая',5:'июня',6: 'июля', 7:'августа', 8:'сентября', 9:'октября', 10:'ноября', 11:'декабря' };
     const dayEnum={ 0:'ПН', 1:'ВТ', 2:'СР', 3:'ЧТ',4:'ПТ',5:'СБ',6:'ВС' };
-
     let dateInterval = { start : '', end : '' };
 
-    const meetings=useSelector(store=>store.meetingsSlice.meetings);
+    const meetings=useSelector(getMeetings);
     const currentUser = useSelector(getCurrentUser);
     
     const schedule=[];
+    
 
     const addEditedMeeting = (meeting: MeetingInfo) => {
-        dispatch(setEditedMeeting(meeting)); 
+        dispatch(setEditedMeeting({ ...meeting, participants: meeting.participants.map(item => item.id) })); 
         dispatch(setOpened(true));
     };
 

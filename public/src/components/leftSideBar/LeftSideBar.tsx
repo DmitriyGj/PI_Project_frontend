@@ -21,7 +21,6 @@ const LeftSideBar = () => {
     const viewType = useSelector((state:RootState) => state.meetingsSlice.viewType); 
     
     const onChangeDate = (values: RangePickerSharedProps<Moment>['value']) => {
-        console.log(values);
         let startDate: Date | null;
         let endDate: Date | null;
         if(values){

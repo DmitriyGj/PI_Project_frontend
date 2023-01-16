@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { authUser } from './thunk';
+import { authUser, fetchUsers } from './thunk';
 import { UserDetailInfo, UsersState, UserRole } from './types';
 import { getCookie } from 'cookies-next';
 
@@ -28,12 +28,18 @@ const usersSlice = createSlice({
 
             })
             .addCase(authUser.fulfilled, (state, action)=>{
-                const user = action.payload;
+                const { user } = action.payload;
                 state.currentUser = user;
             })
             .addCase(authUser.rejected, (state, action)=>{
                 console.log(action.payload + ' rejected');
 
+            })
+            .addCase(fetchUsers.pending, (state,action) => {
+                state.users = [];
+            })
+            .addCase(fetchUsers.fulfilled, (state, action) => {
+                state.users = action.payload;
             });
     }
 });

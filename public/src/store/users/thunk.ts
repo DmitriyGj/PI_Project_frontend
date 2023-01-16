@@ -5,6 +5,8 @@ import { BaseAPI } from 'fetch-api/base-api';
 import { setCookie } from 'cookies-next';
 import { MeetingsAPI } from 'fetch-api/meeting-api';
 import { setMeetings } from '@store/meetings/slice';
+import { getCurrentUser } from './selectors';
+import { RootState } from '..';
 
 type AuthData = {
     login: string
@@ -19,7 +21,7 @@ export const authUser = createAsyncThunk('users/authUser',
                 return rejectWithValue(error.message);
             });
         setCookie('user', user);
-        return user;
+        return { user };
     }
 );
 
@@ -32,16 +34,10 @@ export const logoutUser = createAsyncThunk('users/logoutUser',
 
 
 export const fetchUsers = createAsyncThunk('users/fetchUsers',
-    async (value: number, { getState, dispatch }) => {
-        const data: UserDetailInfo = {
-            id: 0,
-            name: '',
-            email: '',
-            login: '',
-            role: UserRole.NONE,
-            organization: ''
-        };
-        dispatch(setCurrentUser(data));
-        return value + 1;
+    async (_, { getState, dispatch }) => {
+        const state = getState() as RootState;
+        const currentUser = getCurrentUser(state);
+        const users = await BaseAPI.getUsers(currentUser.jwt);
+        return users;
     }
 );

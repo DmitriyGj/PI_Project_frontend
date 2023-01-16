@@ -7,14 +7,13 @@ import { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
 const { Option } = Select;
 
 export const SelectUsers =  ({ selectedValue: value, className, items, style, onSelect }: ISelectUsersProps): JSX.Element => {
-    const [ { selectedValue }, setState ] = useState<ISelectUsersState>({  selectedValue: value ?? [] });
-
+    // const [ { selectedValue }, setState ] = useState<ISelectUsersState>({  selectedValue: value ?? [] });
     const selectValue = useCallback(
         (value?: string []) => {
             onSelect && onSelect(value ?? []);
-            setState({ selectedValue: value });
+            // setState({ selectedValue: value  });
         },
-        [ items, selectedValue, onSelect ],
+        [ items, onSelect ],
     );
 
     const clearSelected = useCallback(
@@ -36,7 +35,7 @@ export const SelectUsers =  ({ selectedValue: value, className, items, style, on
         dropdownMatchSelectWidth={true}
         optionFilterProp='label'  
         size='middle'
-        value={selectedValue}
+        value={value}
         filterOption={filterHandler}
         onChange={selectValue}  
         onClear={clearSelected}>

@@ -25,8 +25,10 @@ class MeetingsService {
         };
         const partipicantCards = await axios.get(`${this.partipicantsUrl}?personDetails.person.login=${login}`, config).then(res => res.data);
         const meetings: MeetingResponseData[] = await Promise.all(partipicantCards.map(async(item: ParticipantCardResponseData) => {
+            console.log(item);
             const partipicants = await Promise.all((await axios.get<ParticipantCardResponseData[]>(`${this.partipicantsUrl}?meeting.id=${item.meeting.id}`, config).then(res => res.data))
                 .map((item: ParticipantCardResponseData) => item.personDetails));
+            const res = partipicants;
             return {
                 ...item.meeting,
                 participants: partipicants.map(item => {
@@ -41,22 +43,17 @@ class MeetingsService {
             };
         }
         ));
-        return meetings.map(({
-            fromDate,
-            id,
-            initiator,
-            name,
-            place,
-            toDate
-        }) => ({
-            id,
-            dateTimeStart: new Date(fromDate),
-            dateTimeEnd: new Date(toDate),
-            invoker: initiator.id,
-            name,
-            place,
-            partipicnats: []
+        const result = meetings.map(meeting => ({
+            id: meeting.id,
+            dateTimeStart: new Date(meeting.fromDate),
+            dateTimeEnd: new Date(meeting.toDate),
+            invoker: meeting.initiator.id,
+            name: meeting.name,
+            place: meeting.place,
+            participants: meeting.participants
         }));
+        console.log(result);
+        return result ;
     };
 
     postMeeting = async ({
@@ -66,27 +63,61 @@ class MeetingsService {
         const headers = {
             'Authorization': `Bearer ${JWT}`
         };
+        console.log(MeetingInfo)
         const { name, invoker, place, dateTimeStart, dateTimeEnd, participants } = MeetingInfo;
-        const res: MeetingInfo = await axios.post(this.baseURL, {
+        const res = await axios.post<MeetingResponseData>(this.baseURL, {
             name,
             place,
-            iniciator_id: invoker,
+            initiator: { id:invoker },
             fromDate: dateTimeStart,
             toDate: dateTimeEnd,
         },
         { headers });
 
-        const { id: meeting_id } = res;
-        //res.id - айди созданной встречи, после нужно создать карточки участников на освное массива partipicants
-        const partipicantsOfMeeting = participants.map(async participant => {
-            const { id } = participant;
+        const { id: meeting_id } = res.data;
+        const partipicantsOfMeeting = participants.map(async participant_id => {
             return await axios.post(this.partipicantsUrl, {
-                meeting_id,
-                person_details_id: id
+                meeting: { id: meeting_id },
+                personDetails: { id: participant_id }
             },
             { headers }).then(res => res.data);
         });
         const partipicantCards = await Promise.all(partipicantsOfMeeting);
+        return {
+            meeting: res,
+            partipicantCards
+        };
+    };
+
+    putMeeting = async ({
+        JWT,
+        MeetingInfo:MeetingInfo
+    }: PostMeetingData) => {
+        const headers = {
+            'Authorization': `Bearer ${JWT}`
+        };
+        const { id, name, invoker, place, dateTimeStart, dateTimeEnd, participants } = MeetingInfo;
+        console.log(invoker);
+        const res: MeetingInfo = await axios.put(`${this.baseURL}`, {
+            id,
+            name,
+            place,
+            initiator: { id:invoker },
+            fromDate: dateTimeStart,
+            toDate: dateTimeEnd,
+        },
+        { headers });
+
+        const partipicantsResponse: ParticipantCardResponseData[] = await (await axios.get(`${this.partipicantsUrl}?meeting.id=${id}`, { headers })).data;
+        const partipicantsDelete = partipicantsResponse.map(async item => await axios.delete(`${this.partipicantsUrl}/${item.id}`,{ headers }));
+        await Promise.all(partipicantsDelete);
+        const partipicantCards = await Promise.all(
+            participants.map(async item => await axios.post(this.partipicantsUrl, {
+                meeting: { id },
+                personDetails: { id:item }
+            },
+            { headers }))
+        );
         return {
             meeting: res,
             partipicantCards

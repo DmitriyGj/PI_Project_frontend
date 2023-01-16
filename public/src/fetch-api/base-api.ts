@@ -1,6 +1,6 @@
 ﻿import { baseURL } from './config';
 import axios from 'axios';
-import { UserDetailInfo, UserRole } from '@store/users/types';
+import { UserDetailInfo, UserInfo, UserRole } from '@store/users/types';
 import { AuthData, UserDetailsResponseData, UserResponseData } from '@models/index';
 
 
@@ -34,19 +34,22 @@ class AuthService {
     };
 
     getUsers = async (jwt: string) => {
-        const res = await axios.get(`${baseURL}/user`, {
+        const res = await axios.get(`${baseURL}/user-details`, {
             headers: {
                 'Authorization': `Bearer ${jwt}`
             },
         });
-        const usersList = res.data;
-        const userDetailsList = await Promise.all(usersList.map(async user => {
-            const userDetails =await this.getUserDetails(user.login, jwt);
-            return { ...user, ...userDetails };
-        }
-        ));
+        const usersList = res.data as UserDetailsResponseData[];
 
-        return userDetailsList;
+        return usersList.map<UserInfo>(user => ({
+            email: user.person.email,
+            id: user.id,
+            lastName: user.lastName,
+            login: user.person.email,
+            name: user.name,
+            organization: user.person.organization,
+            patronymic: user.patronymic
+        }));
     };
 
     getUserDetails = async (login: string, jwt: string ): Promise<UserDetailsResponseData> => {

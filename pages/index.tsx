@@ -8,6 +8,7 @@ import { getCookie } from 'cookies-next';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMeetings } from '@store/meetings/thunk';
+import { fetchUsers } from '@store/users/thunk';
 
 const Home: NextPage = () => {
     const dispatch = useDispatch();
@@ -23,6 +24,7 @@ const Home: NextPage = () => {
 
     useEffect(() => {
         dispatch(fetchMeetings(null));
+        dispatch(fetchUsers(null));
     },[ currentUser ]);
 
     return (
