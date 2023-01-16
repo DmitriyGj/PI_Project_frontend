@@ -1,4 +1,4 @@
-
+﻿
 import MeetingSchedule from '@components/meetingSchedule/MeetingSchedule';
 import { wrapper } from '@store/index';
 import { getCurrentUser } from '@store/users/selectors';
@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchMeetings } from '@store/meetings/thunk';
 import { fetchUsers } from '@store/users/thunk';
 
-const Home: NextPage = () => {
+const Projects: NextPage = () => {
     const dispatch = useDispatch();
     const currentUser = useSelector(getCurrentUser);
 
@@ -25,7 +25,6 @@ const Home: NextPage = () => {
     useEffect(() => {
         dispatch(fetchMeetings(null));
         dispatch(fetchUsers(null));
-        // dispatch(fetchProjects(null));
     },[ currentUser ]);
 
     return (
@@ -35,4 +34,4 @@ const Home: NextPage = () => {
     );
 };
 
-export default Home;
+export default Projects;

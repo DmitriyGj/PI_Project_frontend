@@ -17,6 +17,45 @@ class MeetingsService {
         return res;
     };
 
+    getMeetingsOfUserAsIniciator = async(jwt: string, login: string) => {
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${jwt}`
+            }
+        };
+        const ownMeetings = await axios.get(`${this.baseURL}?initiator.login=${login}`, config).then(res => res.data);
+        console.log(ownMeetings)
+        const meetings: MeetingResponseData[] = await Promise.all(ownMeetings.map(async(item: MeetingResponseData) => {
+            const partipicants = await Promise.all((await axios.get<ParticipantCardResponseData[]>(`${this.partipicantsUrl}?meeting.id=${item.id}`, config).then(res => res.data))
+                .map((item: ParticipantCardResponseData) => item.personDetails));
+            const res = partipicants;
+            return {
+                ...item,
+                participants: partipicants.map(item => {
+                    const { person, ...rest } = item;
+                    return {
+                        ...rest,
+                        login: person.login,
+                        organization: person.organization,
+                        email: person.email,
+                    };
+                })
+            };
+        }
+        ));
+        console.log(meetings)
+        const result = meetings.map(meeting => ({
+            id: meeting.id,
+            dateTimeStart: new Date(meeting.fromDate),
+            dateTimeEnd: new Date(meeting.toDate),
+            invoker: meeting.initiator.id,
+            name: meeting.name,
+            place: meeting.place,
+            participants: meeting.participants
+        }));
+        return result ;
+    };
+
     getMeetingsOfUserAsPartipicant = async(jwt: string, login: string) => {
         const config = {
             headers: {
@@ -25,7 +64,6 @@ class MeetingsService {
         };
         const partipicantCards = await axios.get(`${this.partipicantsUrl}?personDetails.person.login=${login}`, config).then(res => res.data);
         const meetings: MeetingResponseData[] = await Promise.all(partipicantCards.map(async(item: ParticipantCardResponseData) => {
-            console.log(item);
             const partipicants = await Promise.all((await axios.get<ParticipantCardResponseData[]>(`${this.partipicantsUrl}?meeting.id=${item.meeting.id}`, config).then(res => res.data))
                 .map((item: ParticipantCardResponseData) => item.personDetails));
             const res = partipicants;
@@ -52,7 +90,6 @@ class MeetingsService {
             place: meeting.place,
             participants: meeting.participants
         }));
-        console.log(result);
         return result ;
     };
 
@@ -63,7 +100,6 @@ class MeetingsService {
         const headers = {
             'Authorization': `Bearer ${JWT}`
         };
-        console.log(MeetingInfo)
         const { name, invoker, place, dateTimeStart, dateTimeEnd, participants } = MeetingInfo;
         const res = await axios.post<MeetingResponseData>(this.baseURL, {
             name,
@@ -97,7 +133,6 @@ class MeetingsService {
             'Authorization': `Bearer ${JWT}`
         };
         const { id, name, invoker, place, dateTimeStart, dateTimeEnd, participants } = MeetingInfo;
-        console.log(invoker);
         const res: MeetingInfo = await axios.put(`${this.baseURL}`, {
             id,
             name,
@@ -122,6 +157,17 @@ class MeetingsService {
             meeting: res,
             partipicantCards
         };
+    };
+
+    deleteMeeting = async(jwt: string, meeting_id: number) => {
+        const headers = {
+            'Authorization': `Bearer ${jwt}`
+        };
+        const partipicantsResponse: ParticipantCardResponseData[] = await (await axios.get(`${this.partipicantsUrl}?meeting.id=${meeting_id}`, { headers })).data;
+        const deleteReq = await Promise.all(partipicantsResponse.map(
+            async (item) => await axios.delete(`${this.partipicantsUrl}/${item.id}`, { headers })
+        ));
+        const res: MeetingInfo = await axios.delete(`${this.baseURL}/${meeting_id}`, { headers });
     };
 }
 

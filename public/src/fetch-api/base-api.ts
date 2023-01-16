@@ -2,6 +2,7 @@
 import axios from 'axios';
 import { UserDetailInfo, UserInfo, UserRole } from '@store/users/types';
 import { AuthData, UserDetailsResponseData, UserResponseData } from '@models/index';
+import { idText } from 'typescript';
 
 
 class AuthService {
@@ -43,9 +44,10 @@ class AuthService {
 
         return usersList.map<UserInfo>(user => ({
             email: user.person.email,
+            user_id: user.person.id,
             id: user.id,
             lastName: user.lastName,
-            login: user.person.email,
+            login: user.person.login,
             name: user.name,
             organization: user.person.organization,
             patronymic: user.patronymic

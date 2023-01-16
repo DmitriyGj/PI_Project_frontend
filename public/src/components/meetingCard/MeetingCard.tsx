@@ -17,7 +17,8 @@ const MeetingCard=({ meeting, conflict=false})=>
     const duration = (start: Date, end: Date)=>{
         const hours=Math.trunc((end-start)/(1000*3600));
         const minutes=(end-start)/(1000*60)%60;
-        return (hours?(hours+' ч. '):'')+(minutes?minutes+' мин.':'');
+        // return (hours?(hours+' ч. '):'')+(minutes?minutes+' мин.':'');
+        return `${hours ? hours + 'ч' : ''} ${minutes ? Math.round(minutes) + ' мин' : ''}`;
     };
 
     const showTime = (time: Date)=>

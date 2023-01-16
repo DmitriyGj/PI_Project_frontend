@@ -36,6 +36,11 @@ const MeetingForm = () => {
     const timeFormat = 'HH:mm';
     const datetimeFormat = 'DD.MM.YY | HH:mm';
 
+    const organizator = editedMeeting.id === -1 ? currentUser : users.find(user => user.user_id === +editedMeeting.invoker)  ;
+    const isNewMeeting = editedMeeting.id === -1;
+    const isOrganizator = organizator?.login === currentUser?.login ;
+    const canEdit = organizator?.login === currentUser?.login || !isNewMeeting;
+
     const dispatch = useDispatch();
 
     const onClose = () => {
@@ -89,46 +94,48 @@ const MeetingForm = () => {
 
     const handleSubmit = async() => {
         const method = editedMeeting.id !== -1 ? updateMeeting : addMeeting ;
-        console.log(editedMeeting)
         const requestData = editedMeeting.id !== -1 ? { ...editedMeeting } : { ...editedMeeting, invoker: currentUser?.id };
-        console.log(requestData)
         const res =  dispatch(method(requestData));
     };
 
     return (
         editedMeeting && <>
             <div className={Style.main}>
-                <h3>Название встречи</h3>
-                <Input placeholder='Введите название встречи' value={editedMeeting.name} onChange={onName}/>
+                <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <h3>Название встречи</h3>
+                    {isOrganizator && !isNewMeeting && <Button style={{ padding: 0, border: '0px'}} onClick={() =>{ onClose();dispatch(removeMeeting(editedMeeting.id)); }} >Удалить</Button>}
+                </div>
+                <Input disabled={!canEdit} placeholder='Введите название встречи' value={editedMeeting.name} onChange={onName}/>
                 
                 <h3>Дата проведения</h3>
-                <DatePicker value={moment(startEdited)} onChange={onDatePickerStart} placement='bottomRight' placeholder={'Выберите дату'} disabledDate={disabledDate} className={Style.width} format={dateFormat} />
+                <DatePicker disabled={!canEdit} value={moment(startEdited)} onChange={onDatePickerStart} placement='bottomRight' placeholder={'Выберите дату'} disabledDate={disabledDate} className={Style.width} format={dateFormat} />
 
                 <h3>Время встречи</h3>
-                <TimePicker value={moment(startEdited)} onChange={onTimePickerStart} placement='bottomRight' placeholder={'Время начала'} className={Style.width} format={timeFormat} />
+                <TimePicker disabled={!canEdit} value={moment(startEdited)} onChange={onTimePickerStart} placement='bottomRight' placeholder={'Время начала'} className={Style.width} format={timeFormat} />
 
-                <Checkbox className={Style.margintop} checked={ startDate !== endDate } onChange={onCheckBox}>Иная дата окончания</Checkbox>
+                <Checkbox disabled={!canEdit} className={Style.margintop} checked={ startDate !== endDate } onChange={onCheckBox}>Иная дата окончания</Checkbox>
                 {startDate !== endDate
                     ? <>
-                        <DatePicker value={moment(endEdeted)} onChange={onDatePickerEnd} placement='bottomRight' showTime placeholder='Выберите дату окончания' format={datetimeFormat} className={Style.another} />
+                        <DatePicker disabled={!canEdit} value={moment(endEdeted)} onChange={onDatePickerEnd} placement='bottomRight' showTime placeholder='Выберите дату окончания' format={datetimeFormat} className={Style.another} />
                     </>
-                    : <TimePicker value={moment(endEdeted)} onChange={onTimePickerEnd} placement='bottomRight' placeholder={'Время окончания'} className={Style.another} format={timeFormat} />
+                    : <TimePicker disabled={!canEdit} value={moment(endEdeted)} onChange={onTimePickerEnd} placement='bottomRight' placeholder={'Время окончания'} className={Style.another} format={timeFormat} />
                 }
                 
                 <h3>Место проведения</h3>
-                <Input addonBefore='http://' value={editedMeeting.place } onChange={onPlace}/> 
+                <Input disabled={!canEdit} addonBefore='http://' value={editedMeeting.place } onChange={onPlace}/> 
                 <div className={Style.andor}>и/или</div>
-                <Input placeholder='Локация' value={editedMeeting.link } onChange={onLink}/>
+                <Input disabled={!canEdit} placeholder='Локация' value={editedMeeting.link } onChange={onLink}/>
 
-                <h3>Проекты</h3>
+                {/* <h3>Проект</h3>
                 <SelectUsers
-                    items={users}/>
+                    items={users}/> */}
 
                 <h3>Организатор</h3>
-                <div>{currentUser?.name}<br/><div className={Style.email}>{currentUser?.email}</div></div>
+                <div>{organizator?.name} {organizator?.lastName}<br/><div className={Style.email}>{organizator?.email}</div></div>
                 
                 <h3>Участники</h3>
                 <SelectUsers
+                    disabled={!canEdit}
                     selectedValue={editedMeeting.participants}
                     onSelect={onParticipant}
                     items={users}/>

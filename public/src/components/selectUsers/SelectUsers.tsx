@@ -6,7 +6,7 @@ import { DefaultOptionType } from 'antd/lib/select';
 import { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
 const { Option } = Select;
 
-export const SelectUsers =  ({ selectedValue: value, className, items, style, onSelect }: ISelectUsersProps): JSX.Element => {
+export const SelectUsers =  ({ selectedValue: value, className, items, style, onSelect, disabled = false }: ISelectUsersProps): JSX.Element => {
     // const [ { selectedValue }, setState ] = useState<ISelectUsersState>({  selectedValue: value ?? [] });
     const selectValue = useCallback(
         (value?: string []) => {
@@ -29,6 +29,7 @@ export const SelectUsers =  ({ selectedValue: value, className, items, style, on
     };
 
     return <Select className={className}
+        disabled={disabled}
         style={style}
         allowClear showSearch showArrow={true}
         mode='multiple'

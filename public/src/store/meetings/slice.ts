@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { MeetingState, MeetingInfo, MeetingDateInterval, CalendarViewType } from './types';
-import { addMeeting, fetchMeetings, updateMeeting } from './thunk';
+import { addMeeting, fetchMeetings, removeMeeting, updateMeeting } from './thunk';
 
 
 const initialState: MeetingState = { meetings : [
@@ -47,7 +47,9 @@ const meetingsSlice = createSlice({
             })
             .addCase(addMeeting.fulfilled, (state,action) => { state.meetings = action.payload;})
             .addCase(updateMeeting.pending, (state, action) => { state.meetings = [];})
-            .addCase(updateMeeting.fulfilled, (state,action) => {state.meetings = action.payload;});
+            .addCase(updateMeeting.fulfilled, (state,action) => {state.meetings = action.payload;})
+            .addCase(removeMeeting.pending, (state, action) => { state.meetings = [];})
+            .addCase(removeMeeting.fulfilled, (state,action) => {state.meetings = action.payload;});
     }
 });
 

@@ -11,10 +11,11 @@ import { CalendarViewType, MeetingInfo } from '../../store/meetings/types';
 import moment from 'moment';
 import { useState } from 'react';
 import { getCurrentUser } from '@store/users/selectors';
-import { getMeetings } from '@store/meetings/selectors';
+import { getEditedMeeting, getMeetings } from '@store/meetings/selectors';
 
 const MeetingSchedule=()=>{
     const viewType=useSelector(store=>store.meetingsSlice.viewType);
+    const editedMeeting = useSelector(getEditedMeeting);
     
     const dispatch = useDispatch();
 
@@ -132,7 +133,7 @@ const MeetingSchedule=()=>{
         <div className={Style.schedule}>{
             currentUser &&  
             <>
-                <SideBar buttonText={'+'} title={'Добавить встречу'} content={<MeetingForm/>}/>
+                <SideBar buttonText={'+'} title={editedMeeting.id === -1 ? 'Добавить встречу' : 'Изменить встречу' } content={<MeetingForm/>}/>
                 {schedule}
             </>
         }

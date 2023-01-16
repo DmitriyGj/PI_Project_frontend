@@ -8,6 +8,7 @@ export interface ISelectUsersProps {
   displayName?: string
   valueName?: string
   style?: CSSProperties
+  disabled: boolean
 
   placeholder?: string
   dropdownWidth?: number | 'auto'
